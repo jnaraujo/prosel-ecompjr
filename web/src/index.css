@@ -3,5 +3,11 @@
 @tailwind utilities;
 
 body {
-  background-color: theme("colors.zinc.50")
+  background-color: theme("colors.zinc.50");
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
 }
