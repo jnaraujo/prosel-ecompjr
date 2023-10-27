@@ -15,7 +15,11 @@ export default {
     fontFamily: {
       sans: ["Inter", fontFamily.sans],
     },
-    extend: {},
+    extend: {
+      colors: {
+        "brand-blue": "#1D6FB7",
+      },
+    },
   },
   plugins: [],
 }

@@ -5,7 +5,7 @@ export default function Root() {
   return (
     <>
       <Navbar />
-      <main className="container min-h-screen">
+      <main className="flex flex-1 flex-col">
         <Outlet />
       </main>
     </>
