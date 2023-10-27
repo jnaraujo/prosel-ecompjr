@@ -1,3 +1,4 @@
+import AboutUs from "../components/layouts/about-us"
 import Hero from "../components/layouts/hero"
 import MissionVisionValues from "../components/layouts/mission-vision-values"
 import OurServices from "../components/layouts/our-services"
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <MissionVisionValues />
       <OurServices />
+      <AboutUs />
     </>
   )
 }
