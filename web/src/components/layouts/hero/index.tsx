@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import Marquee from "react-fast-marquee"
 import wave from "../../../assets/wave.svg"
 import { images } from "./constants"
+import Button from "../../button"
 
 export default function Hero() {
   return (
@@ -16,12 +17,9 @@ export default function Hero() {
           design à implementação, estamos aqui para atender às suas demandas.
         </p>
 
-        <Link
-          className="bg-brand-blue block w-full rounded-md px-4 py-2 text-white transition duration-300 ease-in-out hover:bg-sky-700 hover:shadow-md md:text-lg"
-          to="/#contato"
-        >
-          Entre em contato
-        </Link>
+        <Button asChild>
+          <Link to="/#contato">Entre em contato</Link>
+        </Button>
       </div>
 
       <Marquee
