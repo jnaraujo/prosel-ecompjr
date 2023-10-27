@@ -7,7 +7,7 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "8px",
+      padding: "1rem",
       screens: {
         "2xl": "1200px",
       },
