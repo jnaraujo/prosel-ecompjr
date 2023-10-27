@@ -8,7 +8,7 @@ export default function Navbar() {
         alt="logo"
         width={128}
         height={44}
-        className="h-12 object-contain"
+        className="h-9 object-contain md:h-12"
       />
     </nav>
   )
