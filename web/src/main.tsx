@@ -4,7 +4,6 @@ import "./index.css"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import Home from "./routes/home"
 import Root from "./routes/root"
-import Login from "./routes/login"
 
 const router = createBrowserRouter([
   {
@@ -17,7 +16,33 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        lazy: async () => {
+          const module = await import("./routes/login")
+          return {
+            Component: module.default,
+          }
+        },
+      },
+      {
+        path: "/dashboard",
+        lazy: async () => {
+          const module = await import("./routes/dashboardRoot")
+          return {
+            Component: module.default,
+          }
+        },
+
+        children: [
+          {
+            path: "/dashboard",
+            lazy: async () => {
+              const module = await import("./routes/dashboard")
+              return {
+                Component: module.default,
+              }
+            },
+          },
+        ],
       },
     ],
   },
