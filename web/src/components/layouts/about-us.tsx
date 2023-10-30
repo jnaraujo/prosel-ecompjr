@@ -20,7 +20,7 @@ export default function AboutUs() {
         </div>
 
         <img
-          className="w-full justify-self-end md:h-[350px] md:w-fit"
+          className="w-full justify-self-end rounded-xl md:h-[350px] md:w-fit"
           src={image}
           alt="EcompJr"
           width={500}
