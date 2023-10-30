@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  # app:
+  #   build: .
+  #   ports:
+  #     - "80:80"
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ecompjr
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  db: 
+    driver: local
