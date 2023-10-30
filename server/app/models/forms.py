@@ -1,0 +1,11 @@
+from sqlalchemy import Column, Integer, String
+
+from database import Base
+
+class Form(Base):
+  __tablename__ = "forms"
+
+  id:int = Column(Integer, primary_key=True, index=True)
+  name:str = Column(String)
+  email:str = Column(String, unique=True, index=True)
+  description:str = Column(String)
