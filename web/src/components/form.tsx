@@ -54,7 +54,7 @@ export default function Form() {
         />
       </div>
 
-      <div>
+      <div className="space-y-1">
         <label htmlFor="email" className="text-sm text-zinc-600">
           Email: <span className="text-red-500">*</span>
         </label>
@@ -68,7 +68,7 @@ export default function Form() {
         />
       </div>
 
-      <div>
+      <div className="space-y-1">
         <label htmlFor="message" className="text-sm text-zinc-600">
           Mensagem: <span className="text-red-500">*</span>
         </label>
