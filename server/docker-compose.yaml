@@ -1,11 +1,18 @@
-version: '3'
+version: '3.8'
 
 services:
-  # app:
-  #   build: .
-  #   ports:
-  #     - "80:80"
+  app:
+    build: .
+    depends_on:
+      db:
+          condition: service_healthy
+    ports:
+      - "3000:3000"
+    networks:
+      - back
+
   db:
+    hostname: database
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -15,7 +22,18 @@ services:
     volumes:
       - db:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - back
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 1s
+      timeout: 20s
+      retries: 10
 
 volumes:
   db: 
     driver: local
+
+networks:
+  back:
+    driver: bridge

@@ -8,4 +8,8 @@ RUN pip install --no-cache-dir --upgrade -r /server/requirements.txt
 
 COPY ./app /server/app
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+WORKDIR /server/app
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"]
+
+EXPOSE 3000
