@@ -26,7 +26,7 @@ export default function Login() {
       })
 
       const data = await login(form)
-      const token = await data.json()
+      const { token } = await data.json()
 
       if (!data.ok || !token) {
         toast.error("Usuário ou senha inválidos.")
