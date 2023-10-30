@@ -48,7 +48,7 @@ export default function Login() {
     }
   }
   return (
-    <section className="container flex min-h-[78svh] items-center justify-center">
+    <main className="container flex min-h-[78svh] flex-1 flex-col items-center justify-center">
       <form onSubmit={submitMessage} className="flex flex-col space-y-2">
         <h1 className="text-center text-xl font-semibold text-zinc-700">
           Faça seu login
@@ -86,6 +86,6 @@ export default function Login() {
           {isSending ? "Processando..." : "Entrar"}
         </Button>
       </form>
-    </section>
+    </main>
   )
 }

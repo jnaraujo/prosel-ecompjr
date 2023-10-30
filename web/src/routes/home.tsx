@@ -7,11 +7,13 @@ import OurServices from "../components/layouts/our-services"
 export default function Home() {
   return (
     <>
-      <Hero />
-      <MissionVisionValues />
-      <OurServices />
-      <AboutUs />
-      <Contact />
+      <main className="flex flex-1 flex-col">
+        <Hero />
+        <MissionVisionValues />
+        <OurServices />
+        <AboutUs />
+        <Contact />
+      </main>
     </>
   )
 }

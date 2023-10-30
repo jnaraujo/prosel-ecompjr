@@ -8,9 +8,7 @@ export default function Root() {
   return (
     <>
       <Navbar />
-      <main className="flex flex-1 flex-col">
-        <Outlet />
-      </main>
+      <Outlet />
       <Footer />
 
       <ScrollToHashElement />
