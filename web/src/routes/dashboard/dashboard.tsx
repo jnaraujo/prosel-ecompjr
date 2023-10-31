@@ -5,6 +5,7 @@ import { Link, useSearchParams } from "react-router-dom"
 import { cn } from "../../lib/utils"
 import Button from "../../components/button"
 import { ChevronDown, ChevronRight, ChevronUp } from "lucide-react"
+import cookies from "js-cookie"
 
 export default function Dashboard() {
   const [isFormsOpen, setIsFormsOpen] = useState(false)
@@ -13,6 +14,7 @@ export default function Dashboard() {
   const { isLoading, error, data } = useQuery("formsData", getForms, {
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5, // 5 minutes
+    enabled: !!cookies.get("token"),
   })
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function Dashboard() {
   if (!data) return null
   if (error) return <p>Erro ao carregar formulários.</p>
 
-  const selectedForm = data?.find(
+  const selectedForm = data.find(
     (form) => String(form.id) === searchParams.get("formId"),
   )
 

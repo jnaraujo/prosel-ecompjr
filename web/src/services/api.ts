@@ -22,7 +22,7 @@ export interface FormResponse {
   id: string
 }
 
-export function getForms(): Promise<FormResponse[]> {
+export async function getForms(): Promise<FormResponse[]> {
   return fetch(`${import.meta.env.VITE_API_URL}/forms`, {
     headers: {
       Authorization: `Bearer ${cookies.get("token")}`,
@@ -61,7 +61,7 @@ export interface User {
   email: string
 }
 
-export function findAllUsers(): Promise<User[]> {
+export async function findAllUsers(): Promise<User[]> {
   return fetch(`${import.meta.env.VITE_API_URL}/user`, {
     headers: {
       Authorization: `Bearer ${cookies.get("token")}`,

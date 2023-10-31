@@ -6,11 +6,13 @@ import { ChevronDown, ChevronUp, Plus } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useQuery } from "react-query"
 import { Link, useSearchParams } from "react-router-dom"
+import cookies from "js-cookie"
 
 export default function Users() {
   const { isLoading, error, data } = useQuery("usersData", findAllUsers, {
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5, // 5 minutes
+    enabled: !!cookies.get("token"),
   })
 
   const [isSideOpen, setIsSideOpen] = useState(false)
