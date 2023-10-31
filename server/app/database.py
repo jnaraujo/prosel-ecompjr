@@ -1,8 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from envs import database_url
 
-SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:root@localhost:3306/ecompjr"
+SQLALCHEMY_DATABASE_URL = database_url
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
