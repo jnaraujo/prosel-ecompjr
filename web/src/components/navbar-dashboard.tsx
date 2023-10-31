@@ -26,7 +26,7 @@ export default function NavbarDashboard() {
           src={logo}
           alt="logo"
           width={128}
-          height={44}
+          height={40}
           className="-ml-[5px] h-9 object-contain md:h-10"
         />
       </Link>

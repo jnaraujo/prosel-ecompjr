@@ -9,7 +9,7 @@ export default function Navbar() {
           src={logo}
           alt="logo"
           width={128}
-          height={44}
+          height={40}
           className="h-9 object-contain md:h-10"
         />
       </Link>
