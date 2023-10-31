@@ -1,3 +1,5 @@
+import cookies from "js-cookie"
+
 interface Form {
   name: string
   email: string
@@ -11,6 +13,21 @@ export function createForm(form: Form) {
     },
     body: JSON.stringify(form),
   })
+}
+
+export interface FormResponse {
+  name: string
+  email: string
+  description: string
+  id: string
+}
+
+export function getForms(): Promise<FormResponse[]> {
+  return fetch(`${import.meta.env.VITE_API_URL}/forms`, {
+    headers: {
+      Authorization: `Bearer ${cookies.get("token")}`,
+    },
+  }).then((res) => res.json())
 }
 
 interface UserLogin {

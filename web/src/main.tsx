@@ -23,26 +23,26 @@ const router = createBrowserRouter([
           }
         },
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    lazy: async () => {
+      const module = await import("./routes/dashboardRoot")
+      return {
+        Component: module.default,
+      }
+    },
+
+    children: [
       {
         path: "/dashboard",
         lazy: async () => {
-          const module = await import("./routes/dashboardRoot")
+          const module = await import("./routes/dashboard")
           return {
             Component: module.default,
           }
         },
-
-        children: [
-          {
-            path: "/dashboard",
-            lazy: async () => {
-              const module = await import("./routes/dashboard")
-              return {
-                Component: module.default,
-              }
-            },
-          },
-        ],
       },
     ],
   },
