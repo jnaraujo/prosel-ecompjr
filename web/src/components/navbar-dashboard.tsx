@@ -21,7 +21,7 @@ export default function NavbarDashboard() {
 
   return (
     <nav className="container flex items-center justify-between py-2">
-      <Link to="/">
+      <Link to="/dashboard">
         <img
           src={logo}
           alt="logo"
