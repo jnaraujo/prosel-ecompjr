@@ -16,5 +16,12 @@ def create_form(form: schemas.Form, db: Session = Depends(get_db)):
     }
 
 @router.get("/forms")
-def get_forms(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def get_forms(db: Session = Depends(get_db), _: str = Depends(get_current_user)):
     return FormRepository.find_all(db)
+
+@router.delete("/forms/{id}")
+def delete_form(id: int, db: Session = Depends(get_db), _: str = Depends(get_current_user)):
+    FormRepository.delete(db, id)
+    return {
+        "success": True,
+    }

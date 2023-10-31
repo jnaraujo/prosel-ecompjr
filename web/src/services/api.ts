@@ -30,6 +30,15 @@ export async function getForms(): Promise<FormResponse[]> {
   }).then((res) => res.json())
 }
 
+export function deleteForm(id: string) {
+  return fetch(`${import.meta.env.VITE_API_URL}/forms/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${cookies.get("token")}`,
+    },
+  })
+}
+
 interface UserLogin {
   email: string
   password: string

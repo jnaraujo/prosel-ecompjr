@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react"
-import { FormResponse, getForms } from "../../services/api"
+import { FormResponse, deleteForm, getForms } from "../../services/api"
 import { useQuery } from "react-query"
 import { Link, useSearchParams } from "react-router-dom"
 import { cn } from "../../lib/utils"
 import Button from "../../components/button"
-import { ChevronDown, ChevronRight, ChevronUp } from "lucide-react"
+import { ChevronDown, ChevronRight, ChevronUp, Trash2 } from "lucide-react"
 import cookies from "js-cookie"
+import ConfirmationDialog from "@/components/confirmation-dialog"
 
 export default function Dashboard() {
   const [isFormsOpen, setIsFormsOpen] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { isLoading, error, data } = useQuery("formsData", getForms, {
+  const { isLoading, error, data, refetch } = useQuery("formsData", getForms, {
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5, // 5 minutes
     enabled: !!cookies.get("token"),
@@ -55,7 +56,9 @@ export default function Dashboard() {
             })}
           >
             <ul className="space-y-4 pr-1">
-              {data?.map((form) => <FormBox key={form.id} {...form} />)}
+              {data?.map((form) => (
+                <FormBox key={form.id} refetch={refetch} {...form} />
+              ))}
             </ul>
           </div>
         </div>
@@ -79,8 +82,17 @@ export default function Dashboard() {
   )
 }
 
-function FormBox({ name, email, description, id }: FormResponse) {
+interface UserBoxProps extends FormResponse {
+  refetch: () => void
+}
+
+function FormBox({ name, email, description, id, refetch }: UserBoxProps) {
   const [searchParams] = useSearchParams()
+
+  async function handleDeleteForm() {
+    await deleteForm(id)
+    refetch()
+  }
 
   return (
     <Link
@@ -92,9 +104,21 @@ function FormBox({ name, email, description, id }: FormResponse) {
         },
       )}
     >
-      <strong className="text-base font-semibold text-zinc-500">
-        {name} - {email}
-      </strong>
+      <div className="flex w-full items-center justify-between">
+        <strong className="line-clamp-1 text-base font-semibold text-zinc-500">
+          {name} - {email}
+        </strong>
+
+        <ConfirmationDialog
+          title="Tem certeza que deseja excluir este formulário?"
+          description="Esta ação não pode ser desfeita."
+          confirmText="Excluir formulário"
+          cancelText="Cancelar"
+          onConfirm={handleDeleteForm}
+        >
+          <Trash2 className="h-5 w-5 text-zinc-400 transition-colors duration-200 ease-in-out hover:text-red-600" />
+        </ConfirmationDialog>
+      </div>
       <p className="line-clamp-3 text-zinc-400">{description}</p>
     </Link>
   )

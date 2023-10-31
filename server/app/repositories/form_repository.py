@@ -12,3 +12,8 @@ class FormRepository:
   @staticmethod
   def find_all(db:Session):
     return db.query(Form).all()
+  
+  @staticmethod
+  def delete(db:Session, id: int):
+    db.query(Form).filter(Form.id == id).delete()
+    db.commit()
