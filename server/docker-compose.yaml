@@ -2,12 +2,11 @@ version: '3.8'
 
 services:
   app:
+    hostname: app
     build: .
     depends_on:
       db:
           condition: service_healthy
-    ports:
-      - "2258:2258"
     networks:
       - back
 
@@ -17,8 +16,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: ecompjr
-    expose:
-      - "3306"
     volumes:
       - db:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -29,6 +26,17 @@ services:
       interval: 1s
       timeout: 20s
       retries: 10
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 2258:2258
+    depends_on:
+      - app
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - back
 
 volumes:
   db: 
