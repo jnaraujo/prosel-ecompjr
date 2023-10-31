@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "server"
+version = "0.1.0"
+description = ""
+authors = ["Jônatas Araújo <jonatasaraujo2257@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = ">=0.68.0,<0.69.0"
+pydantic = ">=1.8.0,<2.0.0"
+uvicorn = ">=0.15.0,<0.16.0"
+sqlalchemy = "2.0.22"
+pymysql = "1.1.0"
+passlib = "1.7.4"
+bcrypt = "4.0.1"
+cryptography = "41.0.5"
+python-jose = "3.3.0"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
