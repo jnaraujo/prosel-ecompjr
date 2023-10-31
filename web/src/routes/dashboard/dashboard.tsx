@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react"
 import { FormResponse, getForms } from "../../services/api"
 import { useQuery } from "react-query"
-import { Link, useNavigate, useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { cn } from "../../lib/utils"
 import Button from "../../components/button"
 import { ChevronDown, ChevronRight, ChevronUp } from "lucide-react"
-import cookies from "js-cookie"
 
 export default function Dashboard() {
-  const navigate = useNavigate()
   const [isFormsOpen, setIsFormsOpen] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -19,11 +17,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     document.title = "Dashboard | EcompJr"
-
-    if (!cookies.get("token")) {
-      navigate("/login")
-    }
-  }, [navigate])
+  }, [])
 
   useEffect(() => {
     if (data && data.length > 0 && !searchParams.get("formId")) {
