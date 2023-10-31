@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
-import NavbarDashboard from "../components/navbar-dashboard"
+import NavbarDashboard from "../../components/navbar-dashboard"
 
 const queryClient = new QueryClient()
 
