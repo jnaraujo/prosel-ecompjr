@@ -43,7 +43,7 @@ export default function NavbarDashboard() {
               <Link to="/dashboard">Formulários</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="/dashboard/create-user">Criar usuário</Link>
+              <Link to="/dashboard/users">Alterar/Criar usuários</Link>
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />

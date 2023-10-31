@@ -44,6 +44,15 @@ const router = createBrowserRouter([
           }
         },
       },
+      {
+        path: "/dashboard/users",
+        lazy: async () => {
+          const module = await import("./routes/dashboard/users")
+          return {
+            Component: module.default,
+          }
+        },
+      },
     ],
   },
 ])

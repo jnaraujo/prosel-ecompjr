@@ -44,3 +44,41 @@ export function login(userLogin: UserLogin) {
     body: JSON.stringify(userLogin),
   })
 }
+
+export function createUser(userLogin: UserLogin) {
+  return fetch(`${import.meta.env.VITE_API_URL}/user`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${cookies.get("token")}`,
+    },
+    body: JSON.stringify(userLogin),
+  })
+}
+
+export interface User {
+  id: string
+  email: string
+}
+
+export function findAllUsers(): Promise<User[]> {
+  return fetch(`${import.meta.env.VITE_API_URL}/user`, {
+    headers: {
+      Authorization: `Bearer ${cookies.get("token")}`,
+    },
+  }).then((res) => res.json())
+}
+
+export function updateUser(id: number, userLogin: UserLogin) {
+  return fetch(`${import.meta.env.VITE_API_URL}/user`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${cookies.get("token")}`,
+    },
+    body: JSON.stringify({
+      ...userLogin,
+      id,
+    }),
+  })
+}
