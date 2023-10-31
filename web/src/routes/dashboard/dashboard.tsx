@@ -36,7 +36,7 @@ export default function Dashboard() {
   )
 
   return (
-    <section className="container flex h-[94svh] flex-col sm:flex-row sm:gap-8">
+    <section className="container flex min-h-[90svh] flex-col sm:h-[93svh] sm:flex-row sm:gap-8">
       <aside className="flex flex-col gap-2 overflow-hidden sm:max-w-[300px] sm:flex-1">
         <div className="flex flex-1 flex-col gap-2 overflow-hidden">
           <h2
