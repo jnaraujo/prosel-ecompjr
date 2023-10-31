@@ -1,15 +1,21 @@
-FROM python:3.9
+FROM python:3.12
 
 WORKDIR /server
 
-COPY ./requirements.txt /server/requirements.txt
+ENV DATABASE_URL="mysql+pymysql://root:root@database:3306/ecompjr" \
+  POETRY_VERSION=1.6.1
 
-RUN pip install --no-cache-dir --upgrade -r /server/requirements.txt
+
+RUN pip install poetry==$POETRY_VERSION
+RUN python -m venv /venv
+
+COPY pyproject.toml poetry.lock ./
+
+RUN poetry config virtualenvs.create false
+RUN poetry install
 
 COPY ./app /server/app
 
 WORKDIR /server/app
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"]
-
-EXPOSE 3000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "2258"]
