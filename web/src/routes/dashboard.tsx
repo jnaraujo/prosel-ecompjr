@@ -70,7 +70,7 @@ export default function Dashboard() {
         <div className="flex w-full justify-end py-4">
           <Button
             asChild
-            className="flex w-fit items-center justify-center gap-2 py-1"
+            className="flex w-fit items-center justify-center gap-2"
           >
             <Link to={`mailto:${selectedForm?.email}`}>
               Responder email <ChevronRight />

@@ -17,7 +17,7 @@ export default function Button({
   return (
     <Comp
       className={cn(
-        "block w-full rounded-md bg-brand-blue px-4 py-2 text-white transition duration-300 ease-in-out hover:bg-sky-700 hover:shadow-md md:text-lg",
+        "block w-full rounded-md bg-brand-blue px-4 py-2 text-white transition duration-300 ease-in-out hover:bg-sky-700 hover:shadow-md",
         className,
       )}
       {...props}
