@@ -85,7 +85,7 @@ export default function CreateUserForm() {
         />
       </div>
 
-      <Button type="submit" disabled={isSending}>
+      <Button type="submit" isLoading={isSending}>
         {isSending ? "Criando..." : "Criar novo administrador"}
       </Button>
     </form>

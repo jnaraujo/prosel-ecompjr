@@ -102,7 +102,7 @@ export default function UpdateUserForm({ user: { id, email } }: Props) {
         />
       </div>
 
-      <Button type="submit" disabled={isSending}>
+      <Button type="submit" isLoading={isSending}>
         {isSending ? "Atualizando..." : "Atualizar usuário"}
       </Button>
     </form>

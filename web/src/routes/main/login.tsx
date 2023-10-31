@@ -82,8 +82,8 @@ export default function Login() {
           />
         </div>
 
-        <Button type="submit" disabled={isSending}>
-          {isSending ? "Processando..." : "Entrar"}
+        <Button type="submit" isLoading={isSending}>
+          {isSending ? "Entrando..." : "Entrar"}
         </Button>
       </form>
     </main>
