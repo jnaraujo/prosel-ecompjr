@@ -37,3 +37,34 @@ def create_user(user: schemas.User, db: Session = Depends(get_db), current_user:
     return {
         "token": create_access_token(saved_user.email),
     }
+
+@router.get("/user", status_code=200)
+def get_all_users(db: Session = Depends(get_db), _: str = Depends(get_current_user)):
+    users = []
+
+    for user in UserRepository.find_all(db):
+        users.append({
+            "id": user.id,
+            "email": user.email
+        })
+        
+    return users
+
+@router.put("/user", status_code=200)
+def update_user(user: schemas.UserUpdate, db: Session = Depends(get_db), _: str = Depends(get_current_user)):
+    db_user = UserRepository.find_by_id(db, user.id)
+
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if user.email != db_user.email and UserRepository.does_email_exists(db, user.email):
+        raise HTTPException(status_code=400, detail="Email already exists")
+    
+
+    UserRepository.save(db, User(
+        **user.dict()
+    ))
+
+    return {
+        "message": "User updated successfully"
+    }

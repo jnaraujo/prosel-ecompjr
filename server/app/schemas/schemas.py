@@ -9,6 +9,11 @@ class UserLogin(BaseModel):
   email: str
   password: str
 
+class UserUpdate(BaseModel):
+  id: int
+  email: str
+  password: str
+
 # Form
 class Form(BaseModel):
   name: str
