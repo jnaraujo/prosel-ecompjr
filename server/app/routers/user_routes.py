@@ -60,6 +60,11 @@ def update_user(user: schemas.UserUpdate, db: Session = Depends(get_db), _: str 
     if user.email != db_user.email and UserRepository.does_email_exists(db, user.email):
         raise HTTPException(status_code=400, detail="Email already exists")
     
+    if user.password:
+        user.password = hash_password(user.password)
+    else:
+        user.password = db_user.password
+    
 
     UserRepository.save(db, User(
         **user.dict()

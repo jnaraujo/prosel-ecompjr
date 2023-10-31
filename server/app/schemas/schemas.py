@@ -12,7 +12,7 @@ class UserLogin(BaseModel):
 class UserUpdate(BaseModel):
   id: int
   email: str
-  password: str
+  password: str | None
 
 # Form
 class Form(BaseModel):
