@@ -46,7 +46,7 @@ export default function UpdateUserForm({ user: { id, email } }: Props) {
         return
       }
 
-      toast.success("Usuário criado com sucesso!")
+      toast.success("Usuário atualizado com sucesso.")
       refetch()
     } catch (error) {
       if (error instanceof ValiError) {
@@ -54,7 +54,7 @@ export default function UpdateUserForm({ user: { id, email } }: Props) {
         return
       }
 
-      toast.error("Ocorreu um erro ao criar o usuário.")
+      toast.error("Ocorreu um erro ao atualizar o usuário.")
     } finally {
       setIsSending(false)
     }
