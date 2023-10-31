@@ -25,12 +25,13 @@ export default function Dashboard() {
     }
   }, [data, searchParams, setSearchParams])
 
+  if (isLoading) return null
+  if (!data) return null
+  if (error) return <p>Erro ao carregar formulários.</p>
+
   const selectedForm = data?.find(
     (form) => String(form.id) === searchParams.get("formId"),
   )
-
-  if (isLoading) return null
-  if (error) return <p>Erro ao carregar formulários.</p>
 
   return (
     <section className="container flex h-[94svh] flex-col sm:flex-row sm:gap-8">
