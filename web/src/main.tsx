@@ -6,60 +6,35 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 const router = createBrowserRouter([
   {
     path: "/",
-    lazy: async () => {
-      const module = await import("./routes/root")
-      return {
-        Component: module.default,
-      }
-    },
+    lazy: lazyLoad("./routes/root"),
     children: [
       {
         path: "/",
-        lazy: async () => {
-          const module = await import("./routes/home")
-          return {
-            Component: module.default,
-          }
-        },
+        lazy: lazyLoad("./routes/main/root"),
+        children: [
+          {
+            path: "/",
+            lazy: lazyLoad("./routes/main/home"),
+          },
+          {
+            path: "/login",
+            lazy: lazyLoad("./routes/main/login"),
+          },
+        ],
       },
-      {
-        path: "/login",
-        lazy: async () => {
-          const module = await import("./routes/login")
-          return {
-            Component: module.default,
-          }
-        },
-      },
-    ],
-  },
-  {
-    path: "/dashboard",
-    lazy: async () => {
-      const module = await import("./routes/dashboard/root")
-      return {
-        Component: module.default,
-      }
-    },
-
-    children: [
       {
         path: "/dashboard",
-        lazy: async () => {
-          const module = await import("./routes/dashboard/dashboard")
-          return {
-            Component: module.default,
-          }
-        },
-      },
-      {
-        path: "/dashboard/users",
-        lazy: async () => {
-          const module = await import("./routes/dashboard/users")
-          return {
-            Component: module.default,
-          }
-        },
+        lazy: lazyLoad("./routes/dashboard/root"),
+        children: [
+          {
+            path: "/dashboard",
+            lazy: lazyLoad("./routes/dashboard/dashboard"),
+          },
+          {
+            path: "/dashboard/users",
+            lazy: lazyLoad("./routes/dashboard/users"),
+          },
+        ],
       },
     ],
   },
@@ -70,3 +45,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
+
+function lazyLoad(path: string) {
+  return async () => {
+    const module = await import(path)
+    return {
+      Component: module.default,
+    }
+  }
+}

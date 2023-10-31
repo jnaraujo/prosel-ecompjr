@@ -1,16 +1,11 @@
 import { Outlet } from "react-router-dom"
 import { Toaster } from "react-hot-toast"
-import Navbar from "../components/navbar"
-import ScrollToHashElement from "../components/scroll-to-hash-element"
-import Footer from "../components/footer"
+import ScrollToHashElement from "@/components/scroll-to-hash-element"
 
 export default function Root() {
   return (
     <>
-      <Navbar />
       <Outlet />
-      <Footer />
-
       <ScrollToHashElement />
       <Toaster
         toastOptions={{
