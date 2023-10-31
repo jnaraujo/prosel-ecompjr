@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import Marquee from "react-fast-marquee"
-import wave from "../../../assets/wave.svg"
+import Wave from "../../../assets/wave.svg?react"
 import { images } from "./constants"
 import Button from "../../button"
 
@@ -39,10 +39,9 @@ export default function Hero() {
         ))}
       </Marquee>
 
-      <img
-        src={wave}
-        alt="wave"
+      <Wave
         className="pointer-events-none absolute -bottom-[1px] left-0 right-0 h-auto w-full"
+        style={{ zIndex: -1 }}
       />
     </section>
   )
