@@ -27,14 +27,18 @@ export default function Hero() {
         className="h-48 px-6"
         gradient={false}
         autoFill={true}
-        pauseOnHover={true}
       >
         {images.map((item) => (
           <div
             key={item}
             className="mx-4 h-36 overflow-hidden rounded-md shadow-md transition duration-300 ease-in-out hover:shadow-xl md:h-48"
           >
-            <img src={item} alt="logo" className="aspect-video h-full" />
+            <img
+              src={item}
+              alt="logo"
+              className="aspect-video h-full"
+              height={144}
+            />
           </div>
         ))}
       </Marquee>
