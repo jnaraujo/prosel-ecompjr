@@ -17,4 +17,4 @@ COPY ./app /server/app
 
 WORKDIR /server/app
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "2258", "--ssl-keyfile", "/etc/letsencrypt/live/vps.jnaraujo.com/privkey.pem", "--ssl-certfile", "/etc/letsencrypt/live/vps.jnaraujo.com/fullchain.pem"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "2258"]
