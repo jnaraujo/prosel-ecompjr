@@ -18,4 +18,4 @@ COPY ./app /server/app
 
 WORKDIR /server/app
 
-CMD ["uvicorn", "main:app", "--host", $SERVER_URL, "--port", "2258"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "2258"]
