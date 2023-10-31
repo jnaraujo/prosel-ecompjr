@@ -8,11 +8,11 @@ export default function Hero() {
   return (
     <section className="relative flex min-h-[90vh] flex-1 flex-col items-center justify-center md:min-h-[95vh] md:gap-16">
       <div className="flex min-h-[400px] max-w-[530px] flex-col items-center justify-center gap-4 px-4 text-center">
-        <h1 className="text-3xl font-bold text-zinc-800 md:text-5xl">
+        <h1 className="text-2xl font-bold text-zinc-800 md:text-5xl">
           Conquiste o <span className="text-brand-blue">Mundo Digital</span> com
           Soluções Sob Medida
         </h1>
-        <p className="text-zinc-600 md:text-xl">
+        <p className="text-lg text-zinc-600">
           Crie uma presença digital única com nossas soluções personalizadas. Do
           design à implementação, estamos aqui para atender às suas demandas.
         </p>
