@@ -25,8 +25,6 @@ export default function Form() {
       // @ts-ignore
       e.target.reset()
     } catch (error) {
-      console.log(error)
-
       if (error instanceof ValiError) {
         toast.error(error.message)
         return
