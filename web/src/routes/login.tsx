@@ -42,7 +42,7 @@ export default function Login() {
         return
       }
 
-      toast.error("Erro ao enviar mensagem.")
+      toast.error("Erro ao fazer login.")
     } finally {
       setIsSending(false)
     }
