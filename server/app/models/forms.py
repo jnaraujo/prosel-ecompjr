@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String
-
+from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.sql import func
 from database import Base
 
 class Form(Base):
@@ -9,3 +9,4 @@ class Form(Base):
   name:str = Column(String)
   email:str = Column(String, unique=True, index=True)
   description:str = Column(String)
+  created_at = Column(DateTime(timezone=True), server_default=func.now())

@@ -20,6 +20,7 @@ export interface FormResponse {
   email: string
   description: string
   id: string
+  created_at: string
 }
 
 export async function getForms(): Promise<FormResponse[]> {
@@ -68,6 +69,7 @@ export function createUser(userLogin: UserLogin) {
 export interface User {
   id: string
   email: string
+  created_at: string
 }
 
 export async function findAllUsers(): Promise<User[]> {

@@ -45,7 +45,8 @@ def get_all_users(db: Session = Depends(get_db), _: str = Depends(get_current_us
     for user in UserRepository.find_all(db):
         users.append({
             "id": user.id,
-            "email": user.email
+            "email": user.email,
+            "created_at": user.created_at
         })
         
     return users
