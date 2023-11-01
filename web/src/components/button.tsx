@@ -6,6 +6,8 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
   asChild?: boolean
   isLoading?: boolean
+
+  variant?: "primary" | "outline"
 }
 export default function Button({
   children,
@@ -13,19 +15,27 @@ export default function Button({
   className,
   isLoading,
   disabled,
+  variant = "primary",
   ...props
 }: Props) {
   const Comp = asChild ? Slot : "button"
+
+  const variants = {
+    primary: "bg-brand-blue hover:bg-sky-700",
+    outline:
+      "bg-transparent border border-brand-blue hover:bg-brand-blue text-brand-blue hover:text-white",
+  }
 
   return (
     <Comp
       disabled={isLoading || disabled}
       className={cn(
-        "hover:shadow- block w-full rounded-md bg-brand-blue px-4 py-2 text-white transition duration-300 ease-in-out hover:bg-sky-700 disabled:cursor-not-allowed disabled:bg-sky-800",
-        className,
+        "block w-full rounded-md px-4 py-2 text-white transition duration-300 ease-in-out disabled:cursor-not-allowed disabled:bg-sky-800",
+        variants[variant],
         {
           "disabled:cursor-wait": isLoading,
         },
+        className,
       )}
       {...props}
     >
