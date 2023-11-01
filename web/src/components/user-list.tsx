@@ -1,3 +1,4 @@
+import { user } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { type User } from "@/services/api"
 import { ChevronDown, ChevronUp, Plus } from "lucide-react"
@@ -11,6 +12,14 @@ interface Props {
 
 export default function UserList({ users, isLoading }: Props) {
   const [isSideOpen, setIsSideOpen] = useState(false)
+  const authUserEmail = user()?.sub
+
+  const sorted = users.sort((a, b) => {
+    if (a.email === authUserEmail) return -1
+    if (b.email === authUserEmail) return 1
+
+    return a.email.localeCompare(b.email)
+  })
 
   return (
     <div className="flex flex-1 flex-col gap-2 overflow-hidden">
@@ -40,7 +49,7 @@ export default function UserList({ users, isLoading }: Props) {
           {isLoading &&
             Array.from({ length: 3 }).map((_, i) => <CardSkeleton key={i} />)}
 
-          {users.map((user) => (
+          {sorted.map((user) => (
             <UserCard key={user.id} {...user} />
           ))}
         </ul>
@@ -61,18 +70,23 @@ function CardSkeleton() {
 
 function UserCard({ email, id }: User) {
   const [searchParams] = useSearchParams()
+  const authUserEmail = user()?.sub
 
   return (
     <Link
       to={{ search: `?userId=${id}` }}
       className={cn(
-        "block cursor-pointer rounded-md border border-zinc-300 p-3 transition-colors duration-200 ease-in-out hover:border-zinc-400",
+        "flex cursor-pointer items-center justify-between rounded-md border border-zinc-300 p-3 transition-colors duration-200 ease-in-out hover:border-zinc-400",
         {
           "border-brand-blue": String(id) === searchParams.get("userId"),
         },
       )}
     >
       <strong className="text-base font-medium text-zinc-500">{email}</strong>
+
+      {authUserEmail === email && (
+        <span className="text-xs font-medium text-zinc-400">(Você)</span>
+      )}
     </Link>
   )
 }
