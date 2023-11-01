@@ -1,9 +1,10 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from typing import Optional
 
 # User
 class User(BaseModel):
   email: str
-  password: str
+  password: str = Field(min_length=8)
 
 class UserLogin(BaseModel):
   email: str
@@ -12,7 +13,7 @@ class UserLogin(BaseModel):
 class UserUpdate(BaseModel):
   id: int
   email: str
-  password: str | None
+  password: Optional[str] = Field(min_length=8)
 
 # Form
 class Form(BaseModel):

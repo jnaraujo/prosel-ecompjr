@@ -1,5 +1,5 @@
 import Button from "@/components/button"
-import { userSchema } from "@/schemas/user-schema"
+import { updateUserSchema } from "@/schemas/user-schema"
 import { findAllUsers, updateUser } from "@/services/api"
 import { useEffect, useState } from "react"
 import { ValiError, parse } from "valibot"
@@ -33,9 +33,11 @@ export default function UpdateUserForm({ user: { id, email } }: Props) {
 
     setIsSending(true)
     try {
-      const form = parse(userSchema, {
-        email: event.currentTarget.email.value,
-        password: event.currentTarget.password.value,
+      const password = event.currentTarget.password.value
+
+      const form = parse(updateUserSchema, {
+        email: emailField,
+        password: password ? password : undefined,
       })
 
       const data = await updateUser(id, form)

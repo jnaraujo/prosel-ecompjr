@@ -80,7 +80,14 @@ export async function findAllUsers(): Promise<User[]> {
   }).then((res) => res.json())
 }
 
-export function updateUser(id: number, userLogin: UserLogin) {
+interface UserUpdate {
+  email: string
+  password?: string
+}
+
+export function updateUser(id: number, user: UserUpdate) {
+  const { password, ...rest } = user
+
   return fetch(`${import.meta.env.VITE_API_URL}/user`, {
     method: "PUT",
     headers: {
@@ -88,8 +95,9 @@ export function updateUser(id: number, userLogin: UserLogin) {
       Authorization: `Bearer ${token()}`,
     },
     body: JSON.stringify({
-      ...userLogin,
+      ...rest,
       id,
+      ...(password ? { password } : {}),
     }),
   })
 }
