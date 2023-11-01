@@ -70,12 +70,11 @@ export default function UpdateUserForm({ user: { id, email } }: Props) {
         Atualizar o perfil de "{email}"
       </h1>
 
-      <div className="space-y-1">
-        <label htmlFor="email" className="text-sm text-zinc-600">
+      <label className="space-y-1">
+        <span className="text-sm text-zinc-600">
           Email: <span className="text-red-500">*</span>
-        </label>
+        </span>
         <input
-          id="email"
           name="email"
           className="w-full rounded-md border border-gray-300 p-2 placeholder-gray-400 outline-none focus:border-brand-blue"
           type="email"
@@ -84,12 +83,10 @@ export default function UpdateUserForm({ user: { id, email } }: Props) {
           onChange={(event) => setEmailField(event.target.value)}
           required
         />
-      </div>
+      </label>
 
-      <div className="space-y-1">
-        <label htmlFor="password" className="text-sm text-zinc-600">
-          Nova senha:
-        </label>
+      <label className="space-y-1">
+        <span className="text-sm text-zinc-600">Nova senha:</span>
         <input
           id="password"
           name="password"
@@ -100,7 +97,7 @@ export default function UpdateUserForm({ user: { id, email } }: Props) {
           value={passwordField}
           onChange={(event) => setPasswordField(event.target.value)}
         />
-      </div>
+      </label>
 
       <Button type="submit" isLoading={isSending}>
         {isSending ? "Atualizando..." : "Atualizar usuário"}
