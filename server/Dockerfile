@@ -2,7 +2,7 @@ FROM python:3.12
 
 WORKDIR /server
 
-ENV DATABASE_URL="mysql+pymysql://root:$MYSQL_ROOT_PASSWORD@database:3306/ecompjr" \
+ENV DATABASE_URL="mysql+pymysql://root:${MYSQL_ROOT_PASSWORD}@database:3306/ecompjr" \
   POETRY_VERSION=1.6.1
 
 RUN pip install poetry==$POETRY_VERSION
