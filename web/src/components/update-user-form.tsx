@@ -67,7 +67,7 @@ export default function UpdateUserForm({ user: { id, email } }: Props) {
       autoComplete="off"
     >
       <h1 className="text-start text-xl font-semibold text-zinc-700">
-        Atualize um administrador
+        Atualizar o perfil de "{email}"
       </h1>
 
       <div className="space-y-1">
