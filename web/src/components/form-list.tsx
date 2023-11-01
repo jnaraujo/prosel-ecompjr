@@ -13,6 +13,10 @@ interface Props {
 export default function FormList({ forms: data, refetch, isLoading }: Props) {
   const [isFormsOpen, setIsFormsOpen] = useState(false)
 
+  const sortedForms = data?.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  })
+
   return (
     <div className="flex flex-1 flex-col gap-2 overflow-hidden">
       <h2
@@ -34,7 +38,7 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
           Array.from({ length: 3 }).map((_, i) => <CardSkeleton key={i} />)}
 
         <ul className="space-y-4 pr-1">
-          {data?.map((form) => (
+          {sortedForms.map((form) => (
             <FormCard key={form.id} refetch={refetch} {...form} />
           ))}
         </ul>
