@@ -43,40 +43,40 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={submitMessage} className="flex flex-col space-y-2">
-      <div className="space-y-1">
-        <label htmlFor="name" className="text-sm text-zinc-600">
+      <label className="space-y-1">
+        <span className="text-sm text-zinc-600">
           Nome: <span className="text-red-500">*</span>
-        </label>
+        </span>
+
         <input
-          id="name"
           name="username"
           className="w-full rounded-md border border-gray-300 p-2 placeholder-gray-400 outline-none focus:border-brand-blue"
           type="text"
           placeholder="João da Silva"
           required
         />
-      </div>
+      </label>
 
-      <div className="space-y-1">
-        <label htmlFor="email" className="text-sm text-zinc-600">
+      <label className="space-y-1">
+        <span className="text-sm text-zinc-600">
           Email: <span className="text-red-500">*</span>
-        </label>
+        </span>
+
         <input
-          id="email"
           name="email"
           className="w-full rounded-md border border-gray-300 p-2 placeholder-gray-400 outline-none focus:border-brand-blue"
           type="email"
           placeholder="Ex: john@exemplo.com"
           required
         />
-      </div>
+      </label>
 
-      <div className="space-y-1">
-        <label htmlFor="message" className="text-sm text-zinc-600">
+      <label className="space-y-1">
+        <span className="text-sm text-zinc-600">
           Mensagem: <span className="text-red-500">*</span>
-        </label>
+        </span>
+
         <textarea
-          id="message"
           name="message"
           className="w-full resize-none rounded-md border border-gray-300 p-2 placeholder-gray-400 outline-none focus:border-brand-blue"
           cols={30}
@@ -84,8 +84,9 @@ export default function ContactForm() {
           placeholder="Ex: Olá, gostaria de um orçamento para..."
           required
         ></textarea>
-      </div>
-      <Button type="submit" disabled={isSending}>
+      </label>
+
+      <Button type="submit" isLoading={isSending}>
         {isSending ? "Enviando..." : "Enviar mensagem"}
       </Button>
     </form>
