@@ -8,7 +8,7 @@ import cookies from "js-cookie"
 import FormList from "../form-list"
 
 export default function FormsLayout() {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const { isLoading, data, refetch } = useQuery("formsData", getForms, {
     refetchOnWindowFocus: false,
@@ -19,12 +19,6 @@ export default function FormsLayout() {
   useEffect(() => {
     document.title = "Dashboard | EcompJr"
   }, [])
-
-  useEffect(() => {
-    if (data && data.length > 0 && !searchParams.get("formId")) {
-      setSearchParams({ formId: data[0].id })
-    }
-  }, [data, searchParams, setSearchParams])
 
   const selectedForm = (data || []).find(
     (form) => String(form.id) === searchParams.get("formId"),
