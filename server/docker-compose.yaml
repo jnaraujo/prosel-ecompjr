@@ -14,7 +14,7 @@ services:
     hostname: database
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ecompjr
     volumes:
       - db:/var/lib/mysql
