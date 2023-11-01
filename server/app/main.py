@@ -7,7 +7,8 @@ app = FastAPI()
 Base.metadata.create_all(bind=engine)
 
 origins = [
-    "*"
+    "http://localhost:5173",
+    "https://ecompjr-prosel.netlify.app/"
 ]
 
 app.add_middleware(
