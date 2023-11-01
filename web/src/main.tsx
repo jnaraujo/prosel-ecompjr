@@ -34,7 +34,7 @@ const router = createBrowserRouter([
           {
             path: "/login",
             lazy: async () => {
-              const module = await import("./routes/main/login")
+              const module = await import("./routes/dashboard/login")
               return {
                 Component: module.default,
               }
