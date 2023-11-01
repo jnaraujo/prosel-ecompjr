@@ -1,11 +1,11 @@
 import { user } from "@/lib/auth"
 import { cn } from "@/lib/utils"
-import { deleteUser, type User } from "@/services/api"
-import { ChevronDown, ChevronUp, Plus, Trash2 } from "lucide-react"
+import { type User } from "@/services/api"
+import { ChevronDown, ChevronUp, Plus } from "lucide-react"
 import { useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
-import ConfirmationDialog from "./confirmation-dialog"
-import toast from "react-hot-toast"
+import UserCardSkeleton from "./skeletons/user-card-skeleton"
+import UserCard from "./user-card"
 
 interface Props {
   users: User[]
@@ -21,7 +21,7 @@ export default function UserList({ users, isLoading, refetch }: Props) {
   const isCreatingNewUser =
     !searchParams.get("userId") || searchParams.get("userId") === "new"
 
-  const sorted = users.sort((a, b) => {
+  const sortedUsers = users.sort((a, b) => {
     if (a.email === authUserEmail) return -1
     if (b.email === authUserEmail) return 1
 
@@ -59,73 +59,15 @@ export default function UserList({ users, isLoading, refetch }: Props) {
           </Link>
 
           {isLoading &&
-            Array.from({ length: 3 }).map((_, i) => <CardSkeleton key={i} />)}
+            Array.from({ length: 3 }).map((_, i) => (
+              <UserCardSkeleton key={i} />
+            ))}
 
-          {sorted.map((user) => (
+          {sortedUsers.map((user) => (
             <UserCard key={user.id} {...user} refetch={refetch} />
           ))}
         </ul>
       </div>
     </div>
-  )
-}
-
-function CardSkeleton() {
-  const widths = ["w-1/2", "w-2/4", "w-3/4", "w-1/3", "w-2/3"]
-  const randomWidth = widths[Math.floor(Math.random() * widths.length)]
-  return (
-    <div className="animate-pulse space-y-2 rounded-md border border-zinc-300 p-4">
-      <div className={`h-4 rounded-md bg-zinc-200 ${randomWidth}`} />
-    </div>
-  )
-}
-
-interface UserCardProps extends User {
-  refetch: () => void
-}
-
-function UserCard({ email, id, refetch }: UserCardProps) {
-  const [searchParams] = useSearchParams()
-  const authUserEmail = user()?.sub
-
-  const isAuthenticatedUser = authUserEmail === email
-
-  return (
-    <Link
-      to={{ search: `?userId=${id}` }}
-      className={cn(
-        "flex cursor-pointer items-center justify-between rounded-md border border-zinc-300 p-3 transition-colors duration-200 ease-in-out hover:border-zinc-400",
-        {
-          "border-brand-blue": String(id) === searchParams.get("userId"),
-        },
-      )}
-    >
-      <strong className="text-base font-medium text-zinc-500">{email}</strong>
-
-      {isAuthenticatedUser ? (
-        <span className="text-xs font-medium text-zinc-400">(Você)</span>
-      ) : (
-        <ConfirmationDialog
-          title="Tem certeza que deseja excluir este usuário?"
-          description="Esta ação não pode ser desfeita."
-          confirmText="Excluir usuário"
-          cancelText="Cancelar"
-          onConfirm={() => {
-            deleteUser(id)
-              .then((res) => res.json())
-              .then((data) => {
-                if (!data.ok) {
-                  toast.error("Não foi possível excluir o usuário.")
-                  return
-                }
-                toast.success("Usuário excluído com sucesso.")
-                refetch()
-              })
-          }}
-        >
-          <Trash2 className="h-5 w-5 text-zinc-400 transition-colors duration-200 ease-in-out hover:text-red-600" />
-        </ConfirmationDialog>
-      )}
-    </Link>
   )
 }
