@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import logo from "../assets/logo.webp"
 import Button from "./button"
 
 export default function Navbar() {
+  const location = useLocation()
+
   return (
     <nav className="container flex items-center justify-between py-2">
       <Link to="/">
@@ -15,9 +17,11 @@ export default function Navbar() {
         />
       </Link>
 
-      <Button asChild className="w-fit py-1" variant="outline">
-        <Link to="/login">Login</Link>
-      </Button>
+      {location.pathname !== "/login" && (
+        <Button asChild className="w-fit py-1" variant="outline">
+          <Link to="/login">Login</Link>
+        </Button>
+      )}
     </nav>
   )
 }
