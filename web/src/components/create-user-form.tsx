@@ -56,26 +56,25 @@ export default function CreateUserForm() {
         Crie um novo administrador
       </h1>
 
-      <div className="space-y-1">
-        <label htmlFor="email" className="text-sm text-zinc-600">
+      <label className="space-y-1">
+        <span className="text-sm text-zinc-600">
           Email: <span className="text-red-500">*</span>
-        </label>
+        </span>
+
         <input
-          id="email"
           name="email"
           className="w-full rounded-md border border-gray-300 p-2 placeholder-gray-400 outline-none focus:border-brand-blue"
           type="email"
           placeholder="Ex: john@exemplo.com"
           required
         />
-      </div>
+      </label>
 
-      <div className="space-y-1">
-        <label htmlFor="password" className="text-sm text-zinc-600">
+      <label className="space-y-1">
+        <span className="text-sm text-zinc-600">
           Senha: <span className="text-red-500">*</span>
-        </label>
+        </span>
         <input
-          id="password"
           name="password"
           className="w-full rounded-md border border-gray-300 p-2 placeholder-gray-400 outline-none focus:border-brand-blue"
           type="password"
@@ -83,7 +82,7 @@ export default function CreateUserForm() {
           autoComplete="new-password"
           required
         />
-      </div>
+      </label>
 
       <Button type="submit" isLoading={isSending}>
         {isSending ? "Criando..." : "Criar novo administrador"}
