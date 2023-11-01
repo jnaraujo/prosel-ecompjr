@@ -11,7 +11,7 @@ oauth2_scheme = OAuth2PasswordBearer(
     scheme_name="JWT"
 )
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days
+ACCESS_TOKEN_EXPIRE_MINUTES = 30 # 30 minutes
 SECRET_KEY="secret-key-example"
 ALGORITHM="HS256"
 
