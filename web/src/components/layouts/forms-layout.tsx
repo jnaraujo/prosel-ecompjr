@@ -32,17 +32,6 @@ export default function FormsLayout() {
 
       <main className="flex flex-1 flex-col justify-between py-4 sm:py-0">
         {selectedForm ? <Form {...selectedForm} /> : <FormNotFound />}
-
-        <div className="flex w-full justify-end py-4">
-          <Button
-            asChild
-            className="flex w-fit items-center justify-center gap-2"
-          >
-            <Link to={`mailto:${selectedForm?.email}`}>
-              Responder email <ChevronRight />
-            </Link>
-          </Button>
-        </div>
       </main>
     </section>
   )
@@ -50,15 +39,28 @@ export default function FormsLayout() {
 
 function Form({ name, email, description }: FormResponse) {
   return (
-    <div className="space-y-2">
-      <div>
-        <h1 className="text-2xl font-bold text-zinc-700">
-          Formulário de: {name}
-        </h1>
-        <h2 className="text-zinc-400">Email: {email}</h2>
+    <>
+      <div className="space-y-2">
+        <div>
+          <h1 className="text-2xl font-bold text-zinc-700">
+            Formulário de: {name}
+          </h1>
+          <h2 className="text-zinc-400">Email: {email}</h2>
+        </div>
+        <p className="text-zinc-500">{description}</p>
       </div>
-      <p className="text-zinc-500">{description}</p>
-    </div>
+
+      <div className="flex w-full justify-end py-4">
+        <Button
+          asChild
+          className="flex w-fit items-center justify-center gap-2"
+        >
+          <Link to={`mailto:${email}`}>
+            Responder email <ChevronRight />
+          </Link>
+        </Button>
+      </div>
+    </>
   )
 }
 
