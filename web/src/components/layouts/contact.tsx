@@ -1,4 +1,4 @@
-import Form from "../form"
+import ContactForm from "../contact-form"
 
 export default function Contact() {
   return (
@@ -20,7 +20,7 @@ export default function Contact() {
         </p>
       </div>
 
-      <Form />
+      <ContactForm />
     </section>
   )
 }

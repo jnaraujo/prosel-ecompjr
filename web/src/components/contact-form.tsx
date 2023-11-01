@@ -5,7 +5,7 @@ import { formSchema } from "../schemas/form-schema"
 import { ValiError, parse } from "valibot"
 import { useState } from "react"
 
-export default function Form() {
+export default function ContactForm() {
   const [isSending, setIsSending] = useState(false)
 
   async function submitMessage(e: React.FormEvent<HTMLFormElement>) {
