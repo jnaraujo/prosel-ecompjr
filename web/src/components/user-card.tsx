@@ -40,14 +40,16 @@ export default function UserCard({ email, id, refetch }: UserCardProps) {
             deleteUser(id)
               .then((res) => {
                 if (!res.ok) {
-                  toast.error("Não foi possível excluir o usuário.")
-                  return
+                  throw new Error("Não foi possível excluir o usuário.")
                 }
                 return res.json()
               })
               .then(() => {
                 toast.success("Usuário excluído com sucesso.")
                 refetch()
+              })
+              .catch(() => {
+                toast.error("Não foi possível excluir o usuário.")
               })
           }}
         >
