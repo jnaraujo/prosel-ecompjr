@@ -41,11 +41,14 @@ export default function UserList({ users, isLoading, refetch }: Props) {
       </h2>
 
       <div
-        className={cn("flex-1 space-y-4 overflow-y-auto pb-4", {
-          "hidden sm:block": !isSideOpen,
-        })}
+        className={cn(
+          "flex-1 space-y-4 overflow-hidden pb-4 pr-1 hover:overflow-y-auto hover:pr-0",
+          {
+            "hidden sm:block": !isSideOpen,
+          },
+        )}
       >
-        <ul className="space-y-4 pr-1">
+        <ul className="space-y-4">
           <Link
             to={{ search: `?userId=new` }}
             className={cn(
