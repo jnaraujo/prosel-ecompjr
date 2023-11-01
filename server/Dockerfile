@@ -3,9 +3,11 @@ FROM python:3.12
 WORKDIR /server
 
 ARG MYSQL_ROOT_PASSWORD
+ARG JWT_SECRET_KEY
 
 ENV DATABASE_URL="mysql+pymysql://root:${MYSQL_ROOT_PASSWORD}@database:3306/ecompjr" \
-  POETRY_VERSION=1.6.1
+  POETRY_VERSION=1.6.1 \
+  JWT_SECRET_KEY=${JWT_SECRET_KEY}
 
 RUN pip install poetry==$POETRY_VERSION
 RUN python -m venv /venv

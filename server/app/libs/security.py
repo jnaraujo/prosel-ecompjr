@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException
+from envs import jwt_secret_key
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(
@@ -11,7 +12,7 @@ oauth2_scheme = OAuth2PasswordBearer(
 )
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30 # 30 minutes
-SECRET_KEY="secret-key-example"
+SECRET_KEY=jwt_secret_key
 ALGORITHM="HS256"
 
 def create_access_token(email: str):
