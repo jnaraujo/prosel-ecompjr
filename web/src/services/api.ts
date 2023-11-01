@@ -93,3 +93,13 @@ export function updateUser(id: number, userLogin: UserLogin) {
     }),
   })
 }
+
+export function deleteUser(id: string) {
+  return fetch(`${import.meta.env.VITE_API_URL}/user/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token()}`,
+    },
+  })
+}

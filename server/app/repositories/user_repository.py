@@ -28,3 +28,13 @@ class UserRepository:
   @staticmethod
   def does_email_exists(db:Session, email:str):
     return db.query(User).filter(User.email == email).first() != None
+  
+  @staticmethod
+  def delete(db:Session, user:User):
+    db.delete(user)
+    db.commit()
+    return user
+  
+  @staticmethod
+  def user_count(db:Session):
+    return db.query(User).count()

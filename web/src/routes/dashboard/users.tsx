@@ -8,7 +8,7 @@ import UserList from "@/components/user-list"
 import { isUserAuthenticated } from "@/lib/auth"
 
 export default function Users() {
-  const { isLoading, data } = useQuery("usersData", findAllUsers, {
+  const { isLoading, data, refetch } = useQuery("usersData", findAllUsers, {
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5, // 5 minutes
     enabled: isUserAuthenticated(),
@@ -25,12 +25,12 @@ export default function Users() {
   )
 
   const createNewUser = searchParams.get("userId") === "new"
-  const showCreateUserForm = createNewUser || isLoading
+  const showCreateUserForm = createNewUser || isLoading || !selectedUser
 
   return (
     <section className="container flex flex-1 flex-col sm:h-[93svh] sm:flex-row sm:gap-8">
       <aside className="flex flex-1 flex-col gap-2 overflow-hidden sm:max-w-[300px] sm:flex-1">
-        <UserList users={data ?? []} isLoading={isLoading} />
+        <UserList refetch={refetch} users={data ?? []} isLoading={isLoading} />
       </aside>
 
       <main className="flex flex-1 justify-center py-4 sm:py-0">

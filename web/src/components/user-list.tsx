@@ -1,16 +1,19 @@
 import { user } from "@/lib/auth"
 import { cn } from "@/lib/utils"
-import { type User } from "@/services/api"
-import { ChevronDown, ChevronUp, Plus } from "lucide-react"
+import { deleteUser, type User } from "@/services/api"
+import { ChevronDown, ChevronUp, Plus, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
+import ConfirmationDialog from "./confirmation-dialog"
+import toast from "react-hot-toast"
 
 interface Props {
   users: User[]
   isLoading?: boolean
+  refetch: () => void
 }
 
-export default function UserList({ users, isLoading }: Props) {
+export default function UserList({ users, isLoading, refetch }: Props) {
   const [isSideOpen, setIsSideOpen] = useState(false)
   const authUserEmail = user()?.sub
   const [searchParams] = useSearchParams()
@@ -59,7 +62,7 @@ export default function UserList({ users, isLoading }: Props) {
             Array.from({ length: 3 }).map((_, i) => <CardSkeleton key={i} />)}
 
           {sorted.map((user) => (
-            <UserCard key={user.id} {...user} />
+            <UserCard key={user.id} {...user} refetch={refetch} />
           ))}
         </ul>
       </div>
@@ -77,9 +80,15 @@ function CardSkeleton() {
   )
 }
 
-function UserCard({ email, id }: User) {
+interface UserCardProps extends User {
+  refetch: () => void
+}
+
+function UserCard({ email, id, refetch }: UserCardProps) {
   const [searchParams] = useSearchParams()
   const authUserEmail = user()?.sub
+
+  const isAuthenticatedUser = authUserEmail === email
 
   return (
     <Link
@@ -93,8 +102,29 @@ function UserCard({ email, id }: User) {
     >
       <strong className="text-base font-medium text-zinc-500">{email}</strong>
 
-      {authUserEmail === email && (
+      {isAuthenticatedUser ? (
         <span className="text-xs font-medium text-zinc-400">(Você)</span>
+      ) : (
+        <ConfirmationDialog
+          title="Tem certeza que deseja excluir este usuário?"
+          description="Esta ação não pode ser desfeita."
+          confirmText="Excluir usuário"
+          cancelText="Cancelar"
+          onConfirm={() => {
+            deleteUser(id)
+              .then((res) => res.json())
+              .then((data) => {
+                if (!data.ok) {
+                  toast.error("Não foi possível excluir o usuário.")
+                  return
+                }
+                toast.success("Usuário excluído com sucesso.")
+                refetch()
+              })
+          }}
+        >
+          <Trash2 className="h-5 w-5 text-zinc-400 transition-colors duration-200 ease-in-out hover:text-red-600" />
+        </ConfirmationDialog>
       )}
     </Link>
   )

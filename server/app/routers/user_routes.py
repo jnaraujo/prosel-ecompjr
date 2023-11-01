@@ -74,3 +74,25 @@ def update_user(user: schemas.UserUpdate, db: Session = Depends(get_db), _: str 
     return {
         "message": "User updated successfully"
     }
+
+@router.delete("/user/{id}", status_code=200)
+def delete_user(id: int, db: Session = Depends(get_db), current_user_email: str = Depends(get_current_user)):
+    db_user = UserRepository.find_by_id(db, id)
+
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if current_user_email == db_user.email:
+        raise HTTPException(status_code=400, detail="You can't delete your own account")
+    
+    if UserRepository.user_count(db) == 1:
+        raise HTTPException(status_code=400, detail="You can't delete the last user")
+    
+    if db_user.id == 1:
+        raise HTTPException(status_code=400, detail="You can't delete the admin account")
+
+    UserRepository.delete(db, db_user)
+
+    return {
+        "message": "User deleted successfully"
+    }
