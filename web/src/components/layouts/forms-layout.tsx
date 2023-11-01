@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { FormResponse, getForms } from "@/services/api"
+import { getForms } from "@/services/api"
 import { useQuery } from "react-query"
 import { Link, useSearchParams } from "react-router-dom"
 import Button from "../button"
@@ -31,48 +31,42 @@ export default function FormsLayout() {
       </aside>
 
       <main className="flex flex-1 flex-col justify-between py-4 sm:py-0">
-        {selectedForm ? <Form {...selectedForm} /> : <FormNotFound />}
+        {selectedForm ? (
+          <>
+            <div className="space-y-2">
+              <div>
+                <h1 className="text-2xl font-bold text-zinc-700">
+                  Formulário de: {selectedForm.name}
+                </h1>
+                <h2 className="text-zinc-400">Email: {selectedForm.email}</h2>
+              </div>
+              <p className="break-all text-zinc-500">
+                {selectedForm.description}
+              </p>
+            </div>
+            <div className="flex w-full justify-end py-4">
+              <Button
+                asChild
+                className="flex w-fit items-center justify-center gap-2"
+              >
+                <Link to={`mailto:${selectedForm.email}`}>
+                  Responder email <ChevronRight />
+                </Link>
+              </Button>
+            </div>{" "}
+          </>
+        ) : (
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold text-zinc-700">
+              Nenhum formulário selecionado
+            </h1>
+            <p className="text-zinc-500">
+              Selecione um formulário na barra lateral para visualizar as
+              respostas.
+            </p>
+          </div>
+        )}
       </main>
     </section>
-  )
-}
-
-function Form({ name, email, description }: FormResponse) {
-  return (
-    <>
-      <div className="space-y-2">
-        <div>
-          <h1 className="text-2xl font-bold text-zinc-700">
-            Formulário de: {name}
-          </h1>
-          <h2 className="text-zinc-400">Email: {email}</h2>
-        </div>
-        <p className="break-all text-zinc-500">{description}</p>
-      </div>
-
-      <div className="flex w-full justify-end py-4">
-        <Button
-          asChild
-          className="flex w-fit items-center justify-center gap-2"
-        >
-          <Link to={`mailto:${email}`}>
-            Responder email <ChevronRight />
-          </Link>
-        </Button>
-      </div>
-    </>
-  )
-}
-
-function FormNotFound() {
-  return (
-    <div className="space-y-2">
-      <h1 className="text-2xl font-bold text-zinc-700">
-        Nenhum formulário selecionado
-      </h1>
-      <p className="text-zinc-500">
-        Selecione um formulário na barra lateral para visualizar as respostas.
-      </p>
-    </div>
   )
 }
