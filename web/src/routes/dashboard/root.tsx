@@ -1,21 +1,20 @@
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import NavbarDashboard from "../../components/navbar-dashboard"
 import { useEffect } from "react"
-import cookies from "js-cookie"
+import { isUserAuthenticated } from "@/lib/auth"
 
 const queryClient = new QueryClient()
 
 export default function Root() {
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
-    document.title = "Dashboard | EcompJr"
-
-    if (!cookies.get("token")) {
+    if (!isUserAuthenticated()) {
       navigate("/login")
     }
-  }, [navigate])
+  }, [navigate, location])
 
   return (
     <>

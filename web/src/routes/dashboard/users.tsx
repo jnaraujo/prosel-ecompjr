@@ -4,14 +4,14 @@ import { findAllUsers } from "@/services/api"
 import { useEffect } from "react"
 import { useQuery } from "react-query"
 import { useSearchParams } from "react-router-dom"
-import cookies from "js-cookie"
 import UserList from "@/components/user-list"
+import { isUserAuthenticated } from "@/lib/auth"
 
 export default function Users() {
   const { isLoading, data } = useQuery("usersData", findAllUsers, {
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5, // 5 minutes
-    enabled: !!cookies.get("token"),
+    enabled: isUserAuthenticated(),
   })
 
   const [searchParams] = useSearchParams()

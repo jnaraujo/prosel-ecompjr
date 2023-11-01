@@ -4,8 +4,8 @@ import { useQuery } from "react-query"
 import { Link, useSearchParams } from "react-router-dom"
 import Button from "../button"
 import { ChevronRight } from "lucide-react"
-import cookies from "js-cookie"
 import FormList from "../form-list"
+import { isUserAuthenticated } from "@/lib/auth"
 
 export default function FormsLayout() {
   const [searchParams] = useSearchParams()
@@ -13,7 +13,7 @@ export default function FormsLayout() {
   const { isLoading, data, refetch } = useQuery("formsData", getForms, {
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5, // 5 minutes
-    enabled: !!cookies.get("token"),
+    enabled: isUserAuthenticated(),
   })
 
   useEffect(() => {

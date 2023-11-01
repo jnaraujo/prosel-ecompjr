@@ -4,8 +4,8 @@ import { ValiError, parse } from "valibot"
 import { userSchema } from "../../schemas/user-schema"
 import { login } from "../../services/api"
 import toast from "react-hot-toast"
-import cookies from "js-cookie"
 import { useNavigate } from "react-router-dom"
+import { saveToken } from "@/lib/auth"
 
 export default function Login() {
   const [isSending, setIsSending] = useState(false)
@@ -33,7 +33,7 @@ export default function Login() {
         return
       }
 
-      cookies.set("token", token)
+      saveToken(token)
 
       navigate("/dashboard")
     } catch (error) {

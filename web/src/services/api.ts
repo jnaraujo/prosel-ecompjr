@@ -1,4 +1,4 @@
-import cookies from "js-cookie"
+import { token } from "@/lib/auth"
 
 interface Form {
   name: string
@@ -25,7 +25,7 @@ export interface FormResponse {
 export async function getForms(): Promise<FormResponse[]> {
   return fetch(`${import.meta.env.VITE_API_URL}/forms`, {
     headers: {
-      Authorization: `Bearer ${cookies.get("token")}`,
+      Authorization: `Bearer ${token()}`,
     },
   }).then((res) => res.json())
 }
@@ -34,7 +34,7 @@ export function deleteForm(id: string) {
   return fetch(`${import.meta.env.VITE_API_URL}/forms/${id}`, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${cookies.get("token")}`,
+      Authorization: `Bearer ${token()}`,
     },
   })
 }
@@ -59,7 +59,7 @@ export function createUser(userLogin: UserLogin) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${cookies.get("token")}`,
+      Authorization: `Bearer ${token()}`,
     },
     body: JSON.stringify(userLogin),
   })
@@ -73,7 +73,7 @@ export interface User {
 export async function findAllUsers(): Promise<User[]> {
   return fetch(`${import.meta.env.VITE_API_URL}/user`, {
     headers: {
-      Authorization: `Bearer ${cookies.get("token")}`,
+      Authorization: `Bearer ${token()}`,
     },
   }).then((res) => res.json())
 }
@@ -83,7 +83,7 @@ export function updateUser(id: number, userLogin: UserLogin) {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${cookies.get("token")}`,
+      Authorization: `Bearer ${token()}`,
     },
     body: JSON.stringify({
       ...userLogin,

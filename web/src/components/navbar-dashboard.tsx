@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
 import logo from "@/assets/logo.webp"
-import cookies from "js-cookie"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,12 +9,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { User } from "lucide-react"
+import { logout } from "@/lib/auth"
 
 export default function NavbarDashboard() {
   const navigate = useNavigate()
 
   function handleLogout() {
-    cookies.remove("token")
+    logout()
     navigate("/login")
   }
 
