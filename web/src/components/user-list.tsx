@@ -13,6 +13,10 @@ interface Props {
 export default function UserList({ users, isLoading }: Props) {
   const [isSideOpen, setIsSideOpen] = useState(false)
   const authUserEmail = user()?.sub
+  const [searchParams] = useSearchParams()
+
+  const isCreatingNewUser =
+    !searchParams.get("userId") || searchParams.get("userId") === "new"
 
   const sorted = users.sort((a, b) => {
     if (a.email === authUserEmail) return -1
@@ -41,7 +45,12 @@ export default function UserList({ users, isLoading }: Props) {
         <ul className="space-y-4 pr-1">
           <Link
             to={{ search: `?userId=new` }}
-            className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-green-500 p-3 text-green-600 transition-colors duration-200 ease-in-out hover:border-green-600"
+            className={cn(
+              "flex w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-green-500 p-3 text-green-600 transition-colors duration-200 ease-in-out hover:border-green-600",
+              {
+                "bg-green-50": isCreatingNewUser,
+              },
+            )}
           >
             Criar novo usuário <Plus />
           </Link>
