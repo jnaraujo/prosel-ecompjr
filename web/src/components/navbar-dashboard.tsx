@@ -31,7 +31,16 @@ export default function NavbarDashboard() {
         />
       </Link>
 
-      <div>
+      <div className="flex items-center justify-between gap-4">
+        <ul className="hidden items-center gap-4 sm:flex">
+          <li className="text-sky-800 hover:text-sky-900">
+            <Link to="/dashboard">Formulários</Link>
+          </li>
+          <li className="text-sky-800 hover:text-sky-900">
+            <Link to="/dashboard/users">Usuários</Link>
+          </li>
+        </ul>
+
         <DropdownMenu>
           <DropdownMenuTrigger className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-700 text-zinc-700">
             <User size={24} />
