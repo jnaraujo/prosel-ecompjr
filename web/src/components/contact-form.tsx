@@ -18,12 +18,7 @@ export default function ContactForm() {
         description: e.currentTarget.message.value,
       })
 
-      const data = await createForm(form)
-
-      if (!data.ok) {
-        toast.error("Erro ao enviar mensagem.")
-        return
-      }
+      await createForm(form)
 
       toast.success("Mensagem enviada com sucesso!")
 

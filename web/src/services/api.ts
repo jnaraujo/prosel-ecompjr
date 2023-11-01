@@ -5,14 +5,20 @@ interface Form {
   email: string
   description: string
 }
-export function createForm(form: Form) {
-  return fetch(`${import.meta.env.VITE_API_URL}/forms`, {
+export async function createForm(form: Form) {
+  const data = await fetch(`${import.meta.env.VITE_API_URL}/forms`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(form),
   })
+
+  if (!data.ok) {
+    throw new Error("Não foi possível enviar o formulário")
+  }
+
+  return data.json()
 }
 
 export interface FormResponse {
@@ -24,20 +30,32 @@ export interface FormResponse {
 }
 
 export async function getForms(): Promise<FormResponse[]> {
-  return fetch(`${import.meta.env.VITE_API_URL}/forms`, {
+  const data = await fetch(`${import.meta.env.VITE_API_URL}/forms`, {
     headers: {
       Authorization: `Bearer ${token()}`,
     },
-  }).then((res) => res.json())
+  })
+
+  if (!data.ok) {
+    throw new Error("Não foi possível listar os formulários")
+  }
+
+  return data.json()
 }
 
-export function deleteForm(id: string) {
-  return fetch(`${import.meta.env.VITE_API_URL}/forms/${id}`, {
+export async function deleteForm(id: string) {
+  const data = await fetch(`${import.meta.env.VITE_API_URL}/forms/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token()}`,
     },
   })
+
+  if (!data.ok) {
+    throw new Error("Não foi possível deletar o formulário")
+  }
+
+  return data.json()
 }
 
 interface UserLogin {
@@ -73,11 +91,17 @@ export interface User {
 }
 
 export async function findAllUsers(): Promise<User[]> {
-  return fetch(`${import.meta.env.VITE_API_URL}/user`, {
+  const data = await fetch(`${import.meta.env.VITE_API_URL}/user`, {
     headers: {
       Authorization: `Bearer ${token()}`,
     },
-  }).then((res) => res.json())
+  })
+
+  if (!data.ok) {
+    throw new Error("Não foi possível listar os usuários")
+  }
+
+  return data.json()
 }
 
 interface UserUpdate {
