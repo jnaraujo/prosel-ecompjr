@@ -3,7 +3,10 @@ version: '3.8'
 services:
   app:
     hostname: app
-    build: .
+    build:
+      context: .
+      args:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     depends_on:
       db:
           condition: service_healthy
@@ -16,8 +19,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ecompjr
-    ports:
-      - 3306:3306
     volumes:
       - db:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql

@@ -2,6 +2,8 @@ FROM python:3.12
 
 WORKDIR /server
 
+ARG MYSQL_ROOT_PASSWORD
+
 ENV DATABASE_URL="mysql+pymysql://root:${MYSQL_ROOT_PASSWORD}@database:3306/ecompjr" \
   POETRY_VERSION=1.6.1
 
