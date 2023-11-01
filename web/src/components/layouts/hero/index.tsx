@@ -44,7 +44,7 @@ export default function Hero() {
       </Marquee>
 
       <Wave
-        className="pointer-events-none absolute -bottom-[1px] left-0 right-0 h-auto w-full"
+        className="pointer-events-none absolute -bottom-1 left-0 right-0 h-auto w-full"
         style={{ zIndex: -1 }}
       />
     </section>
