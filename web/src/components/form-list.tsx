@@ -31,9 +31,12 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
       </h2>
 
       <div
-        className={cn("flex-1 space-y-4 overflow-y-auto pb-4", {
-          "hidden sm:block": !isFormsOpen,
-        })}
+        className={cn(
+          "flex-1 space-y-4 overflow-hidden py-4 pb-4 pr-1 hover:overflow-y-auto hover:pr-0",
+          {
+            "hidden sm:block": !isFormsOpen,
+          },
+        )}
       >
         {isLoading &&
           Array.from({ length: 3 }).map((_, i) => <FormCardSkeleton key={i} />)}
