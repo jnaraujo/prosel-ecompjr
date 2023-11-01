@@ -38,12 +38,14 @@ export default function UserCard({ email, id, refetch }: UserCardProps) {
           cancelText="Cancelar"
           onConfirm={() => {
             deleteUser(id)
-              .then((res) => res.json())
-              .then((data) => {
-                if (!data.ok) {
+              .then((res) => {
+                if (!res.ok) {
                   toast.error("Não foi possível excluir o usuário.")
                   return
                 }
+                return res.json()
+              })
+              .then(() => {
                 toast.success("Usuário excluído com sucesso.")
                 refetch()
               })
