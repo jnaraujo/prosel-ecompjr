@@ -3,6 +3,7 @@ import { FormResponse } from "@/services/api"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { useState } from "react"
 import FormCard from "./form-card"
+import FormCardSkeleton from "./skeletons/form-card-skeleton"
 
 interface Props {
   forms: FormResponse[]
@@ -35,25 +36,13 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
         })}
       >
         {isLoading &&
-          Array.from({ length: 3 }).map((_, i) => <CardSkeleton key={i} />)}
+          Array.from({ length: 3 }).map((_, i) => <FormCardSkeleton key={i} />)}
 
         <ul className="space-y-4 pr-1">
           {sortedForms.map((form) => (
             <FormCard key={form.id} refetch={refetch} {...form} />
           ))}
         </ul>
-      </div>
-    </div>
-  )
-}
-
-function CardSkeleton() {
-  return (
-    <div className="animate-pulse space-y-2 rounded-md border border-zinc-300 p-3">
-      <div className="h-4 w-1/2 rounded-md bg-zinc-200" />
-      <div className="space-y-1">
-        <div className="h-4 w-1/4 rounded-md bg-zinc-200" />
-        <div className="h-4 w-3/4 rounded-md bg-zinc-200" />
       </div>
     </div>
   )
