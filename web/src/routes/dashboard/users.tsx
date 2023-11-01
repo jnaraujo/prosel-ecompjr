@@ -28,8 +28,8 @@ export default function Users() {
   const showCreateUserForm = createNewUser || isLoading
 
   return (
-    <section className="container flex min-h-[90svh] flex-col sm:h-[93svh] sm:flex-row sm:gap-8">
-      <aside className="flex flex-col gap-2 overflow-hidden sm:max-w-[300px] sm:flex-1">
+    <section className="container flex flex-1 flex-col sm:h-[93svh] sm:flex-row sm:gap-8">
+      <aside className="flex flex-1 flex-col gap-2 overflow-hidden sm:max-w-[300px] sm:flex-1">
         <UserList users={data ?? []} isLoading={isLoading} />
       </aside>
 

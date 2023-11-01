@@ -25,8 +25,8 @@ export default function FormsLayout() {
   )
 
   return (
-    <section className="container flex min-h-[90svh] flex-col sm:h-[93svh] sm:flex-row sm:gap-8">
-      <aside className="flex flex-col gap-2 overflow-hidden sm:max-w-[300px] sm:flex-1">
+    <section className="container flex flex-1 flex-col sm:h-[93svh] sm:flex-row sm:gap-8">
+      <aside className="flex flex-1 flex-col gap-2 overflow-hidden sm:max-w-[300px] sm:flex-1">
         <FormList forms={data || []} refetch={refetch} isLoading={isLoading} />
       </aside>
 
@@ -47,7 +47,7 @@ function Form({ name, email, description }: FormResponse) {
           </h1>
           <h2 className="text-zinc-400">Email: {email}</h2>
         </div>
-        <p className="text-zinc-500">{description}</p>
+        <p className="break-all text-zinc-500">{description}</p>
       </div>
 
       <div className="flex w-full justify-end py-4">
