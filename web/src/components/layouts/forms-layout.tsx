@@ -30,7 +30,7 @@ export default function FormsLayout() {
         <FormList forms={data || []} refetch={refetch} isLoading={isLoading} />
       </aside>
 
-      <main className="flex flex-1 flex-col justify-between py-4 sm:py-0">
+      <main className="flex flex-1 flex-col justify-between overflow-y-auto py-4 pr-2 sm:py-0">
         {selectedForm ? (
           <>
             <div className="space-y-2">
