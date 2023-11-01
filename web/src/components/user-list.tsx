@@ -42,7 +42,7 @@ export default function UserList({ users, isLoading, refetch }: Props) {
 
       <div
         className={cn(
-          "flex-1 space-y-4 overflow-hidden pb-4 pr-1 hover:overflow-y-auto hover:pr-0",
+          "flex-1 space-y-4 overflow-hidden pb-4 pr-2 hover:overflow-y-auto hover:pr-1",
           {
             "hidden sm:block": !isSideOpen,
           },

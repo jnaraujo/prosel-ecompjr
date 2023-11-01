@@ -32,7 +32,7 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
 
       <div
         className={cn(
-          "flex-1 space-y-4 overflow-hidden py-4 pb-4 pr-1 hover:overflow-y-auto hover:pr-0",
+          "flex-1 space-y-4 overflow-hidden py-4 pb-4 pr-2 hover:overflow-y-auto hover:pr-1",
           {
             "hidden sm:block": !isFormsOpen,
           },
@@ -41,7 +41,7 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
         {isLoading &&
           Array.from({ length: 3 }).map((_, i) => <FormCardSkeleton key={i} />)}
 
-        <ul className="space-y-4 pr-1">
+        <ul className="space-y-4">
           {sortedForms.map((form) => (
             <FormCard key={form.id} refetch={refetch} {...form} />
           ))}
