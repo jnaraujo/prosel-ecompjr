@@ -4,6 +4,7 @@ import { ChevronDown, ChevronUp } from "lucide-react"
 import { useState } from "react"
 import FormCard from "./form-card"
 import FormCardSkeleton from "./skeletons/form-card-skeleton"
+import { ScrollArea } from "./ui/scroll-area"
 
 interface Props {
   forms: FormResponse[]
@@ -30,23 +31,22 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
         </span>
       </h2>
 
-      <div
-        className={cn(
-          "flex-1 space-y-4 overflow-y-hidden py-4 pb-4 pr-2 hover:overflow-y-auto hover:pr-1",
-          {
-            "hidden sm:block": !isFormsOpen,
-          },
-        )}
+      <ScrollArea
+        className={cn("flex-1", {
+          "hidden sm:block": !isFormsOpen,
+        })}
       >
-        {isLoading &&
-          Array.from({ length: 3 }).map((_, i) => <FormCardSkeleton key={i} />)}
+        <div className="space-y-4 pr-3">
+          {isLoading &&
+            Array.from({ length: 3 }).map((_, i) => (
+              <FormCardSkeleton key={i} />
+            ))}
 
-        <div className="space-y-4">
           {sortedForms.map((form) => (
             <FormCard key={form.id} refetch={refetch} {...form} />
           ))}
         </div>
-      </div>
+      </ScrollArea>
     </div>
   )
 }

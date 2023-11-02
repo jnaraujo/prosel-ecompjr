@@ -6,6 +6,7 @@ import { useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import UserCardSkeleton from "./skeletons/user-card-skeleton"
 import UserCard from "./user-card"
+import { ScrollArea } from "./ui/scroll-area"
 
 interface Props {
   users: User[]
@@ -40,15 +41,12 @@ export default function UserList({ users, isLoading, refetch }: Props) {
         </span>
       </h2>
 
-      <div
-        className={cn(
-          "flex-1 space-y-4 overflow-hidden pb-4 pr-2 hover:overflow-y-auto hover:pr-1",
-          {
-            "hidden sm:block": !isSideOpen,
-          },
-        )}
+      <ScrollArea
+        className={cn("flex-1", {
+          "hidden sm:block": !isSideOpen,
+        })}
       >
-        <div className="space-y-4">
+        <div className="space-y-4 pr-3">
           <Link
             to={{ search: `?userId=new` }}
             className={cn(
@@ -70,7 +68,7 @@ export default function UserList({ users, isLoading, refetch }: Props) {
             <UserCard key={user.id} {...user} refetch={refetch} />
           ))}
         </div>
-      </div>
+      </ScrollArea>
     </div>
   )
 }
