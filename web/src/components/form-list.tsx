@@ -41,11 +41,11 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
         {isLoading &&
           Array.from({ length: 3 }).map((_, i) => <FormCardSkeleton key={i} />)}
 
-        <ul className="space-y-4">
+        <div className="space-y-4">
           {sortedForms.map((form) => (
             <FormCard key={form.id} refetch={refetch} {...form} />
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   )
