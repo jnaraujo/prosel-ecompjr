@@ -10,7 +10,7 @@ import { type ForwardRefExoticComponent } from "react"
 
 export default function OurServices() {
   return (
-    <section className="container flex flex-col items-center gap-10 py-12">
+    <section className="container flex flex-col items-center gap-10 py-6 pt-12">
       <h2 className="text-3xl font-bold text-brand-blue">Nosso serviços</h2>
 
       <div className="grid w-full grid-cols-1 justify-items-center gap-8 md:grid-cols-2 md:gap-14">
