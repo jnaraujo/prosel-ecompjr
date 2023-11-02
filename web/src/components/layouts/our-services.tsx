@@ -62,7 +62,7 @@ function Item({ title, description, icon: Icon }: ItemProps) {
           {title}
         </h3>
       </div>
-      <p className="text-brand-blue">{description}</p>
+      <p className="text-sky-700">{description}</p>
     </div>
   )
 }
