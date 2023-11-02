@@ -1,6 +1,6 @@
 export default function MissionVisionValues() {
   return (
-    <section className="bg-brand-blue py-24">
+    <section className="bg-brand-blue pb-24 pt-12">
       <div className="container grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-16">
         <div className="space-y-2 text-center">
           <h2 className="text-2xl font-semibold text-zinc-50">Missão</h2>
