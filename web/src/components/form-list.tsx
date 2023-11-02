@@ -32,7 +32,7 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
 
       <div
         className={cn(
-          "flex-1 space-y-4 overflow-hidden py-4 pb-4 pr-2 hover:overflow-y-auto hover:pr-1",
+          "flex-1 space-y-4 overflow-y-hidden py-4 pb-4 pr-2 hover:overflow-y-auto hover:pr-1",
           {
             "hidden sm:block": !isFormsOpen,
           },
