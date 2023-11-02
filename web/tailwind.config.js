@@ -15,6 +15,7 @@ export default {
     },
     fontFamily: {
       sans: ["Inter", fontFamily.sans],
+      poppins: ["Poppins", fontFamily.sans],
     },
     extend: {
       colors: {
