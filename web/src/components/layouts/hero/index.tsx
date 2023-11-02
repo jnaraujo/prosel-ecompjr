@@ -22,26 +22,24 @@ export default function Hero() {
         </Button>
       </div>
 
-      <Marquee
-        speed={20}
-        className="h-48 px-6"
-        gradient={false}
-        autoFill={true}
-      >
-        {images.map((item) => (
-          <div
-            key={item}
-            className="mx-4 h-36 overflow-hidden rounded-md shadow-md transition duration-300 ease-in-out hover:shadow-xl md:h-48"
-          >
-            <img
-              src={item}
-              alt="logo"
-              className="aspect-video h-full"
-              height={144}
-            />
-          </div>
-        ))}
-      </Marquee>
+      <div className="h-48 w-full overflow-hidden">
+        <Marquee speed={20} className="px-6" gradient={false} autoFill={true}>
+          {images.map((item) => (
+            <div
+              key={item}
+              className="mx-4 h-36 overflow-hidden rounded-md shadow-md transition duration-300 ease-in-out hover:shadow-xl md:h-48"
+            >
+              <img
+                src={item}
+                alt="logo"
+                className="aspect-video h-full object-cover object-center"
+                height={192}
+                width={341}
+              />
+            </div>
+          ))}
+        </Marquee>
+      </div>
 
       <Wave
         className="pointer-events-none absolute -bottom-1 left-0 right-0 h-auto w-full"
