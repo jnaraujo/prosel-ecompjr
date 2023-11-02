@@ -40,7 +40,7 @@ export default function FormsLayout() {
                 </h1>
                 <h2 className="text-zinc-400">Email: {selectedForm.email}</h2>
               </div>
-              <p className="break-all text-zinc-500">
+              <p className="hyphens-auto text-zinc-500">
                 {selectedForm.description}
               </p>
             </div>
