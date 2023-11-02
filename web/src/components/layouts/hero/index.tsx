@@ -32,7 +32,7 @@ export default function Hero() {
               <img
                 src={item}
                 alt="logo"
-                className="aspect-video h-full object-cover object-center"
+                className="h-full w-full object-cover"
                 height={192}
                 width={341}
               />
