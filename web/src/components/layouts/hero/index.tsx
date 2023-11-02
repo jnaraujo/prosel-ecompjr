@@ -7,8 +7,8 @@ import Button from "../../button"
 export default function Hero() {
   return (
     <section className="relative flex min-h-[90vh] flex-1 flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 md:min-h-[95vh] md:gap-16">
-      <div className="flex min-h-[400px] max-w-[530px] flex-col items-center justify-center gap-4 px-4 text-center">
-        <h1 className="text-2xl font-bold text-zinc-800 md:text-5xl">
+      <div className="flex min-h-[400px] max-w-[550px] flex-col items-center justify-center gap-4 px-4 text-center">
+        <h1 className="font-poppins text-3xl font-bold text-zinc-800 md:text-5xl md:leading-[1.1]">
           Conquiste o <span className="text-brand-blue">Mundo Digital</span> com
           Soluções Sob Medida
         </h1>
