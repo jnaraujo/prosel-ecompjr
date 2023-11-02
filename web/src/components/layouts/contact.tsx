@@ -8,7 +8,7 @@ export default function Contact() {
     >
       <div className="space-y-2">
         <h2 className="text-3xl font-bold text-brand-blue">Entre em contato</h2>
-        <p className="max-w-[400px] text-brand-blue md:text-lg">
+        <p className="max-w-[400px] text-sky-700 md:text-lg">
           Estamos ansiosos para ouvir você e ajudar a trazer sua visão para o
           mundo digital. Entre em contato conosco hoje e descubra como nossos
           especialistas podem criar soluções personalizadas que atendam às suas
