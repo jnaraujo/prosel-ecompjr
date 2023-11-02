@@ -48,7 +48,7 @@ export default function UserList({ users, isLoading, refetch }: Props) {
           },
         )}
       >
-        <ul className="space-y-4">
+        <div className="space-y-4">
           <Link
             to={{ search: `?userId=new` }}
             className={cn(
@@ -69,7 +69,7 @@ export default function UserList({ users, isLoading, refetch }: Props) {
           {sortedUsers.map((user) => (
             <UserCard key={user.id} {...user} refetch={refetch} />
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   )
