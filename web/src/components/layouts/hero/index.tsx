@@ -6,7 +6,7 @@ import Button from "../../button"
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[90vh] flex-1 flex-col items-center justify-center md:min-h-[95vh] md:gap-16">
+    <section className="relative flex min-h-[90vh] flex-1 flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 md:min-h-[95vh] md:gap-16">
       <div className="flex min-h-[400px] max-w-[530px] flex-col items-center justify-center gap-4 px-4 text-center">
         <h1 className="text-2xl font-bold text-zinc-800 md:text-5xl">
           Conquiste o <span className="text-brand-blue">Mundo Digital</span> com
@@ -45,7 +45,7 @@ export default function Hero() {
 
       <Wave
         className="pointer-events-none absolute -bottom-1 left-0 right-0 h-auto w-full"
-        style={{ zIndex: -1 }}
+        style={{ zIndex: 0 }}
       />
     </section>
   )
