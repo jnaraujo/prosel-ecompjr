@@ -6,11 +6,12 @@ import { useQuery } from "react-query"
 import { useSearchParams } from "react-router-dom"
 import UserList from "@/components/user-list"
 import { isUserAuthenticated } from "@/lib/auth"
+import { USERS_QUERY_STALE_TIME_IN_MS } from "@/constants/query"
 
 export default function Users() {
   const { isLoading, data, refetch } = useQuery("usersData", findAllUsers, {
     refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: USERS_QUERY_STALE_TIME_IN_MS,
     enabled: isUserAuthenticated(),
   })
 

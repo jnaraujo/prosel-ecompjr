@@ -6,13 +6,14 @@ import Button from "../button"
 import { ChevronRight } from "lucide-react"
 import FormList from "../form-list"
 import { isUserAuthenticated } from "@/lib/auth"
+import { FORMS_QUERY_STALE_TIME_IN_MS } from "@/constants/query"
 
 export default function FormsLayout() {
   const [searchParams] = useSearchParams()
 
   const { isLoading, data, refetch } = useQuery("formsData", getForms, {
     refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: FORMS_QUERY_STALE_TIME_IN_MS,
     enabled: isUserAuthenticated(),
   })
 
