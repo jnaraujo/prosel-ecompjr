@@ -1,28 +1,24 @@
 import { createBrowserRouter } from "react-router-dom"
+import Root from "@/pages/root"
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    lazy: async () => {
-      const module = await import("./root")
-      return {
-        Component: module.default,
-      }
-    },
+    element: <Root />,
     children: [
       {
         path: "/",
         lazy: async () => {
-          const module = await import("./main/root")
+          const module = await import("@/pages/home/root")
           return {
             Component: module.default,
           }
         },
         children: [
           {
-            path: "/",
+            index: true,
             lazy: async () => {
-              const module = await import("./main/home")
+              const module = await import("@/pages/home/home")
               return {
                 Component: module.default,
               }
@@ -31,7 +27,7 @@ export const router = createBrowserRouter([
           {
             path: "/login",
             lazy: async () => {
-              const module = await import("./dashboard/login")
+              const module = await import("@/pages/dashboard/login")
               return {
                 Component: module.default,
               }
@@ -42,7 +38,7 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         lazy: async () => {
-          const module = await import("./dashboard/root")
+          const module = await import("@/pages/dashboard/root")
           return {
             Component: module.default,
           }
@@ -52,7 +48,7 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard",
             lazy: async () => {
-              const module = await import("./dashboard/dashboard")
+              const module = await import("@/pages/dashboard/dashboard")
               return {
                 Component: module.default,
               }
@@ -61,7 +57,7 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/users",
             lazy: async () => {
-              const module = await import("./dashboard/users")
+              const module = await import("@/pages/dashboard/users")
               return {
                 Component: module.default,
               }
