@@ -5,7 +5,7 @@ interface Form {
   email: string
   description: string
 }
-export async function createForm(form: Form) {
+export async function createForm(form: Form, retry = 5) {
   const data = await fetch(`${import.meta.env.VITE_API_URL}/forms`, {
     method: "POST",
     headers: {
@@ -15,6 +15,10 @@ export async function createForm(form: Form) {
   })
 
   if (!data.ok) {
+    if (retry > 0) {
+      await new Promise((resolve) => setTimeout(resolve, 250))
+      return createForm(form, retry - 1)
+    }
     throw new Error("Não foi possível enviar o formulário")
   }
 
