@@ -13,8 +13,8 @@ export default function FormsLayout() {
 
   const { isLoading, data, refetch } = useQuery("formsData", getForms, {
     refetchOnWindowFocus: false,
-    staleTime: FORMS_QUERY_STALE_TIME_IN_MS,
     enabled: isUserAuthenticated(),
+    refetchInterval: FORMS_QUERY_STALE_TIME_IN_MS,
   })
 
   useEffect(() => {

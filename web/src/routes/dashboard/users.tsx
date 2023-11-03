@@ -11,8 +11,8 @@ import { USERS_QUERY_STALE_TIME_IN_MS } from "@/constants/query"
 export default function Users() {
   const { isLoading, data, refetch } = useQuery("usersData", findAllUsers, {
     refetchOnWindowFocus: false,
-    staleTime: USERS_QUERY_STALE_TIME_IN_MS,
     enabled: isUserAuthenticated(),
+    refetchInterval: USERS_QUERY_STALE_TIME_IN_MS,
   })
 
   const [searchParams] = useSearchParams()
