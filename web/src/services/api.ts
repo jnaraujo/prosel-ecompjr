@@ -6,23 +6,28 @@ interface Form {
   description: string
 }
 export async function createForm(form: Form, retry = 5) {
-  const data = await fetch(`${import.meta.env.VITE_API_URL}/forms`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(form),
-  })
+  try {
+    const data = await fetch(`${import.meta.env.VITE_API_URL}/forms`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    })
 
-  if (!data.ok) {
+    if (!data.ok) {
+      throw new Error("Não foi possível enviar o formulário")
+    }
+
+    return data.json()
+  } catch (error) {
     if (retry > 0) {
       await new Promise((resolve) => setTimeout(resolve, 250))
       return createForm(form, retry - 1)
     }
-    throw new Error("Não foi possível enviar o formulário")
-  }
 
-  return data.json()
+    throw error
+  }
 }
 
 export interface FormResponse {
