@@ -16,20 +16,34 @@ export default function UserCard({ email, id, refetch }: UserCardProps) {
 
   const isAuthenticatedUser = authUserEmail === email
 
+  const isUserSelected = String(id) === searchParams.get("userId")
+
   return (
     <Link
       to={{ search: `?userId=${id}` }}
       className={cn(
         "flex cursor-pointer items-center justify-between rounded-md border border-zinc-300 p-3 transition-colors duration-200 ease-in-out hover:border-zinc-400",
         {
-          "border-brand-blue": String(id) === searchParams.get("userId"),
+          "bg-brand-blue hover:border-sky-700": isUserSelected,
         },
       )}
     >
-      <strong className="text-base font-medium text-zinc-500">{email}</strong>
+      <strong
+        className={cn("text-base font-medium text-zinc-500", {
+          "text-zinc-100": isUserSelected,
+        })}
+      >
+        {email}
+      </strong>
 
       {isAuthenticatedUser ? (
-        <span className="text-xs font-medium text-zinc-400">(Você)</span>
+        <span
+          className={cn("text-xs font-medium text-zinc-400", {
+            "text-zinc-100": isUserSelected,
+          })}
+        >
+          (Você)
+        </span>
       ) : (
         <ConfirmationDialog
           title="Tem certeza que deseja excluir este usuário?"
@@ -53,7 +67,14 @@ export default function UserCard({ email, id, refetch }: UserCardProps) {
               })
           }}
         >
-          <Trash2 className="h-5 w-5 text-zinc-400 transition-colors duration-200 ease-in-out hover:text-red-600" />
+          <Trash2
+            className={cn(
+              "h-5 w-5 text-zinc-400 transition-colors duration-200 ease-in-out hover:text-red-600",
+              {
+                "text-zinc-100 hover:text-red-500": isUserSelected,
+              },
+            )}
+          />
         </ConfirmationDialog>
       )}
     </Link>
