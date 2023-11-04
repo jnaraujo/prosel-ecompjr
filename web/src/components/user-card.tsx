@@ -1,22 +1,20 @@
 import { user } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { deleteUser, type User } from "@/services/api"
-import { Link, useSearchParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import ConfirmationDialog from "./confirmation-dialog"
 import toast from "react-hot-toast"
 import { Trash2 } from "lucide-react"
+import { memo } from "react"
 
 interface UserCardProps extends User {
   refetch: () => void
+  isUserSelected: boolean
 }
 
-export default function UserCard({ email, id, refetch }: UserCardProps) {
-  const [searchParams] = useSearchParams()
+function UserCard({ email, id, refetch, isUserSelected }: UserCardProps) {
   const authUserEmail = user()?.sub
-
   const isAuthenticatedUser = authUserEmail === email
-
-  const isUserSelected = String(id) === searchParams.get("userId")
 
   return (
     <Link
@@ -80,3 +78,6 @@ export default function UserCard({ email, id, refetch }: UserCardProps) {
     </Link>
   )
 }
+
+const MemoizedUserCard = memo(UserCard)
+export default MemoizedUserCard

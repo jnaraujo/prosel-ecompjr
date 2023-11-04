@@ -18,16 +18,24 @@ export default function UserList({ users, isLoading, refetch }: Props) {
   const [isSideOpen, setIsSideOpen] = useState(false)
   const authUserEmail = user()?.sub
   const [searchParams] = useSearchParams()
+  const userId = searchParams.get("userId")
 
   const isCreatingNewUser =
     !searchParams.get("userId") || searchParams.get("userId") === "new"
 
-  const sortedUsers = users.sort((a, b) => {
-    if (a.email === authUserEmail) return -1
-    if (b.email === authUserEmail) return 1
+  const sortedUsers = users
+    .sort((a, b) => {
+      if (a.email === authUserEmail) return -1
+      if (b.email === authUserEmail) return 1
 
-    return a.email.localeCompare(b.email)
-  })
+      return a.email.localeCompare(b.email)
+    })
+    .map(({ id, ...user }) => {
+      return {
+        id: String(id),
+        ...user,
+      }
+    })
 
   return (
     <div className="flex flex-1 flex-col gap-2 overflow-hidden">
@@ -65,7 +73,14 @@ export default function UserList({ users, isLoading, refetch }: Props) {
             ))}
 
           {sortedUsers.map((user) => (
-            <UserCard key={user.id} {...user} refetch={refetch} />
+            <UserCard
+              key={user.id}
+              created_at={user.created_at}
+              email={user.email}
+              id={user.id}
+              refetch={refetch}
+              isUserSelected={user.id === userId}
+            />
           ))}
         </div>
       </ScrollArea>
