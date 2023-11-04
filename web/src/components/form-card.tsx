@@ -22,18 +22,27 @@ export default function FormCard({
     refetch()
   }
 
+  const isFormSelected = String(id) === searchParams.get("formId")
+
   return (
     <Link
       to={{ search: `?formId=${id}` }}
       className={cn(
         "block cursor-pointer rounded-md border border-zinc-300 p-3 transition-colors duration-200 ease-in-out hover:border-zinc-400",
         {
-          "border-brand-blue": String(id) === searchParams.get("formId"),
+          "bg-brand-blue hover:border-sky-700": isFormSelected,
         },
       )}
     >
-      <div className="flex w-full items-center justify-between">
-        <strong className="line-clamp-1 text-base font-semibold text-zinc-500">
+      <div className="flex w-full items-center justify-between gap-3">
+        <strong
+          className={cn(
+            "line-clamp-1 break-all text-base font-semibold text-zinc-500",
+            {
+              "text-zinc-100": isFormSelected,
+            },
+          )}
+        >
           {name} - {email}
         </strong>
 
@@ -44,10 +53,23 @@ export default function FormCard({
           cancelText="Cancelar"
           onConfirm={handleDeleteForm}
         >
-          <Trash2 className="h-5 w-5 text-zinc-400 transition-colors duration-200 ease-in-out hover:text-red-600" />
+          <Trash2
+            className={cn(
+              "h-5 w-5 text-zinc-400 transition-colors duration-200 ease-in-out hover:text-red-600",
+              {
+                "text-zinc-100 hover:text-red-500": isFormSelected,
+              },
+            )}
+          />
         </ConfirmationDialog>
       </div>
-      <p className="line-clamp-3 text-zinc-400">{description}</p>
+      <p
+        className={cn("line-clamp-3 text-zinc-400", {
+          "text-zinc-200": isFormSelected,
+        })}
+      >
+        {description}
+      </p>
     </Link>
   )
 }
