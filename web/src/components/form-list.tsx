@@ -5,6 +5,7 @@ import { useState } from "react"
 import FormCard from "./form-card"
 import FormCardSkeleton from "./skeletons/form-card-skeleton"
 import { ScrollArea } from "./ui/scroll-area"
+import { useSearchParams } from "react-router-dom"
 
 interface Props {
   forms: FormResponse[]
@@ -14,10 +15,19 @@ interface Props {
 
 export default function FormList({ forms: data, refetch, isLoading }: Props) {
   const [isFormsOpen, setIsFormsOpen] = useState(false)
+  const [searchParams] = useSearchParams()
+  const formId = searchParams.get("formId")
 
-  const sortedForms = data?.sort((a, b) => {
-    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-  })
+  const sortedForms = data
+    ?.sort((a, b) => {
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    })
+    .map(({ id, ...form }) => {
+      return {
+        id: String(id),
+        ...form,
+      }
+    })
 
   return (
     <div className="flex flex-1 flex-col gap-2 overflow-hidden">
@@ -43,7 +53,16 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
             ))}
 
           {sortedForms.map((form) => (
-            <FormCard key={form.id} refetch={refetch} {...form} />
+            <FormCard
+              key={form.id}
+              refetch={refetch}
+              created_at={form.created_at}
+              description={form.description}
+              email={form.email}
+              id={form.id}
+              name={form.name}
+              isFormSelected={formId === form.id}
+            />
           ))}
         </div>
       </ScrollArea>

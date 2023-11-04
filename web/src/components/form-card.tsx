@@ -1,28 +1,27 @@
 import { cn } from "@/lib/utils"
 import { FormResponse, deleteForm } from "@/services/api"
-import { Link, useSearchParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import ConfirmationDialog from "./confirmation-dialog"
 import { Trash2 } from "lucide-react"
+import { memo } from "react"
 
 interface Props extends FormResponse {
   refetch: () => void
+  isFormSelected: boolean
 }
 
-export default function FormCard({
+function FormCard({
   name,
   email,
   description,
   id,
   refetch,
+  isFormSelected,
 }: Props) {
-  const [searchParams] = useSearchParams()
-
   async function handleDeleteForm() {
     await deleteForm(id)
     refetch()
   }
-
-  const isFormSelected = String(id) === searchParams.get("formId")
 
   return (
     <Link
@@ -73,3 +72,6 @@ export default function FormCard({
     </Link>
   )
 }
+
+const MemoizedFormCard = memo(FormCard)
+export default MemoizedFormCard
