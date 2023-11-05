@@ -1,18 +1,16 @@
 import Button from "@/components/button"
 import { userSchema } from "@/schemas/user-schema"
-import { createUser, findAllUsers } from "@/services/api"
+import { createUser } from "@/services/api"
 import { useState } from "react"
 import { ValiError, parse } from "valibot"
 import toast from "react-hot-toast"
-import { useQuery } from "react-query"
 
-export default function CreateUserForm() {
+interface Props {
+  refetch: () => void
+}
+
+export default function CreateUserForm({ refetch }: Props) {
   const [isSending, setIsSending] = useState(false)
-
-  const { refetch } = useQuery("usersData", findAllUsers, {
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  })
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()

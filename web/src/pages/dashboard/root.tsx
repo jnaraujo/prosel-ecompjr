@@ -1,10 +1,11 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
-import { QueryClient, QueryClientProvider } from "react-query"
 import NavbarDashboard from "../../components/navbar-dashboard"
 import { useEffect } from "react"
 import { isUserAuthenticated } from "@/lib/auth"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 export default function Root() {
   const navigate = useNavigate()
@@ -21,6 +22,8 @@ export default function Root() {
       <QueryClientProvider client={queryClient}>
         <NavbarDashboard />
         <Outlet />
+
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   )

@@ -3,6 +3,7 @@ import { isUserAuthenticated } from "@/lib/auth"
 import { Link, useSearchParams } from "react-router-dom"
 import { useQuery } from "react-query"
 import { getForms } from "@/services/api"
+import { useQuery } from "@tanstack/react-query"
 import { FORMS_QUERY_STALE_TIME_IN_MS } from "@/constants/query"
 import FormList from "@/components/form-list"
 import Button from "@/components/button"
@@ -11,10 +12,13 @@ import { ChevronRight } from "lucide-react"
 export default function Dashboard() {
   const [searchParams] = useSearchParams()
 
-  const { isLoading, data, refetch } = useQuery("formsData", getForms, {
+  const { isLoading, data, refetch } = useQuery({
+    queryKey: ["formsData"],
+    queryFn: getForms,
     refetchOnWindowFocus: false,
     enabled: isUserAuthenticated(),
     refetchInterval: FORMS_QUERY_STALE_TIME_IN_MS,
+    staleTime: FORMS_QUERY_STALE_TIME_IN_MS,
   })
 
   useEffect(() => {

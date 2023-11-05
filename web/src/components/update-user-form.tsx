@@ -1,28 +1,26 @@
 import Button from "@/components/button"
 import { updateUserSchema } from "@/schemas/user-schema"
-import { findAllUsers, updateUser } from "@/services/api"
+import { updateUser } from "@/services/api"
 import { useEffect, useState } from "react"
 import { ValiError, parse } from "valibot"
 import toast from "react-hot-toast"
-import { useQuery } from "react-query"
 
 interface Props {
   user: {
     id: number
     email: string
   }
+  refetch: () => void
 }
 
-export default function UpdateUserForm({ user: { id, email } }: Props) {
+export default function UpdateUserForm({
+  user: { id, email },
+  refetch,
+}: Props) {
   const [isSending, setIsSending] = useState(false)
 
   const [emailField, setEmailField] = useState(email)
   const [passwordField, setPasswordField] = useState("")
-
-  const { refetch } = useQuery("usersData", findAllUsers, {
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  })
 
   useEffect(() => {
     setEmailField(email)

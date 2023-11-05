@@ -2,17 +2,20 @@ import CreateUserForm from "@/components/create-user-form"
 import UpdateUserForm from "@/components/update-user-form"
 import { findAllUsers } from "@/services/api"
 import { useEffect } from "react"
-import { useQuery } from "react-query"
 import { useSearchParams } from "react-router-dom"
 import UserList from "@/components/user-list"
 import { isUserAuthenticated } from "@/lib/auth"
 import { USERS_QUERY_STALE_TIME_IN_MS } from "@/constants/query"
+import { useQuery } from "@tanstack/react-query"
 
 export default function Users() {
-  const { isLoading, data, refetch } = useQuery("usersData", findAllUsers, {
+  const { isLoading, data, refetch } = useQuery({
+    queryKey: ["users"],
+    queryFn: findAllUsers,
     refetchOnWindowFocus: false,
     enabled: isUserAuthenticated(),
     refetchInterval: USERS_QUERY_STALE_TIME_IN_MS,
+    staleTime: USERS_QUERY_STALE_TIME_IN_MS,
   })
 
   const [searchParams] = useSearchParams()
@@ -36,9 +39,10 @@ export default function Users() {
 
       <main className="flex flex-1 justify-center py-4 sm:py-0">
         {showCreateUserForm ? (
-          <CreateUserForm />
+          <CreateUserForm refetch={refetch} />
         ) : (
           <UpdateUserForm
+            refetch={refetch}
             user={{
               id: Number(searchParams.get("userId")),
               email: selectedUser?.email ?? "",
