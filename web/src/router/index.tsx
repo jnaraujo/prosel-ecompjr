@@ -53,7 +53,6 @@ export const router = createBrowserRouter([
               const module = await import("@/pages/dashboard/dashboard")
               return {
                 Component: module.default,
-                loader: module.loader,
               }
             },
           },
@@ -63,7 +62,6 @@ export const router = createBrowserRouter([
               const module = await import("@/pages/dashboard/users")
               return {
                 Component: module.default,
-                loader: module.loader,
               }
             },
           },

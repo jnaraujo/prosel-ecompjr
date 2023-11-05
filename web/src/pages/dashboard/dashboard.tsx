@@ -1,13 +1,12 @@
 import { useEffect } from "react"
 import { isUserAuthenticated } from "@/lib/auth"
-import { Link, defer, useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { getForms } from "@/services/api"
 import { useQuery } from "@tanstack/react-query"
 import { FORMS_QUERY_STALE_TIME_IN_MS } from "@/constants/query"
 import FormList from "@/components/form-list"
 import Button from "@/components/button"
 import { ChevronRight } from "lucide-react"
-import { queryClient } from "./root"
 
 export default function Dashboard() {
   const [searchParams] = useSearchParams()
@@ -74,14 +73,4 @@ export default function Dashboard() {
       </main>
     </section>
   )
-}
-
-export async function loader() {
-  const data = queryClient.fetchQuery({
-    queryKey: ["formsData"],
-    queryFn: getForms,
-    staleTime: FORMS_QUERY_STALE_TIME_IN_MS,
-  })
-
-  return defer({ data })
 }

@@ -2,12 +2,11 @@ import CreateUserForm from "@/components/create-user-form"
 import UpdateUserForm from "@/components/update-user-form"
 import { findAllUsers } from "@/services/api"
 import { useEffect } from "react"
-import { defer, useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import UserList from "@/components/user-list"
 import { isUserAuthenticated } from "@/lib/auth"
 import { USERS_QUERY_STALE_TIME_IN_MS } from "@/constants/query"
 import { useQuery } from "@tanstack/react-query"
-import { queryClient } from "./root"
 
 export default function Users() {
   const { isLoading, data, refetch } = useQuery({
@@ -53,14 +52,4 @@ export default function Users() {
       </main>
     </section>
   )
-}
-
-export async function loader() {
-  const data = queryClient.fetchQuery({
-    queryKey: ["users"],
-    queryFn: findAllUsers,
-    staleTime: USERS_QUERY_STALE_TIME_IN_MS,
-  })
-
-  return defer({ data })
 }
