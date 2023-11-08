@@ -1,8 +1,8 @@
 import { user } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { type User } from "@/services/api"
-import { ChevronDown, ChevronUp, Plus } from "lucide-react"
-import { useState } from "react"
+import { ChevronDown, ChevronUp, Plus, X } from "lucide-react"
+import { useEffect, useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import UserCardSkeleton from "./skeletons/user-card-skeleton"
 import UserCard from "./user-card"
@@ -37,6 +37,12 @@ export default function UserList({ users, isLoading, refetch }: Props) {
       }
     })
 
+  useEffect(() => {
+    if (userId) {
+      setIsSideOpen(false)
+    }
+  }, [userId])
+
   return (
     <div className="flex flex-1 flex-col gap-2 overflow-hidden">
       <h2
@@ -49,11 +55,38 @@ export default function UserList({ users, isLoading, refetch }: Props) {
         </span>
       </h2>
 
-      <ScrollArea
-        className={cn("flex-1", {
-          "hidden sm:block": !isSideOpen,
+      <div
+        className={cn("hidden", {
+          "fixed inset-0 z-10 flex flex-col bg-zinc-50 sm:hidden": isSideOpen,
         })}
       >
+        <div className="flex items-center justify-between p-2 py-4">
+          <h2 className="text-lg font-semibold text-zinc-600">Usuários</h2>
+          <button onClick={() => setIsSideOpen(false)}>
+            <X />
+          </button>
+        </div>
+
+        <div className="flex-1 space-y-4 overflow-auto px-2 pb-2">
+          {isLoading &&
+            Array.from({ length: 3 }).map((_, i) => (
+              <UserCardSkeleton key={i} />
+            ))}
+
+          {sortedUsers.map((user) => (
+            <UserCard
+              key={user.id}
+              created_at={user.created_at}
+              email={user.email}
+              id={user.id}
+              refetch={refetch}
+              isUserSelected={user.id === userId}
+            />
+          ))}
+        </div>
+      </div>
+
+      <ScrollArea className="hidden flex-1 sm:block">
         <div className="space-y-4 pr-3">
           <Link
             to={{ search: `?userId=new` }}
