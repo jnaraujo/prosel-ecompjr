@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 import { FormResponse } from "@/services/api"
-import { ChevronDown, ChevronUp } from "lucide-react"
-import { useState } from "react"
+import { ChevronDown, ChevronUp, X } from "lucide-react"
+import { useEffect, useState } from "react"
 import FormCard from "./form-card"
 import FormCardSkeleton from "./skeletons/form-card-skeleton"
 import { ScrollArea } from "./ui/scroll-area"
@@ -29,6 +29,12 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
       }
     })
 
+  useEffect(() => {
+    if (formId) {
+      setIsFormsOpen(false)
+    }
+  }, [formId])
+
   return (
     <div className="flex flex-1 flex-col gap-2 overflow-hidden">
       <h2
@@ -41,11 +47,40 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
         </span>
       </h2>
 
-      <ScrollArea
-        className={cn("flex-1", {
-          "hidden sm:block": !isFormsOpen,
+      <div
+        className={cn("hidden", {
+          "fixed inset-0 z-10 flex flex-col bg-zinc-50 sm:hidden": isFormsOpen,
         })}
       >
+        <div className="flex items-center justify-between p-2 py-4">
+          <h2 className="text-lg font-semibold text-zinc-600">Formulários</h2>
+          <button onClick={() => setIsFormsOpen(false)}>
+            <X />
+          </button>
+        </div>
+
+        <div className="flex-1 space-y-4 overflow-auto px-2 pb-2">
+          {isLoading &&
+            Array.from({ length: 3 }).map((_, i) => (
+              <FormCardSkeleton key={i} />
+            ))}
+
+          {sortedForms.map((form) => (
+            <FormCard
+              key={form.id}
+              refetch={refetch}
+              created_at={form.created_at}
+              description={form.description}
+              email={form.email}
+              id={form.id}
+              name={form.name}
+              isFormSelected={formId === form.id}
+            />
+          ))}
+        </div>
+      </div>
+
+      <ScrollArea className="hidden flex-1 sm:block">
         <div className="space-y-4 pr-3">
           {isLoading &&
             Array.from({ length: 3 }).map((_, i) => (
