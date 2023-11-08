@@ -5,7 +5,7 @@ import { userSchema } from "../../schemas/user-schema"
 import { login } from "../../services/api"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
-import { saveToken } from "@/lib/auth"
+import { isUserAuthenticated, saveToken } from "@/lib/auth"
 
 export default function Login() {
   const [isSending, setIsSending] = useState(false)
@@ -13,7 +13,11 @@ export default function Login() {
 
   useEffect(() => {
     document.title = "Login | EcompJr"
-  }, [])
+
+    if (isUserAuthenticated()) {
+      navigate("/dashboard")
+    }
+  }, [navigate])
 
   async function submitMessage(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -47,6 +51,7 @@ export default function Login() {
       setIsSending(false)
     }
   }
+
   return (
     <main className="container flex min-h-[78svh] flex-1 flex-col items-center justify-center">
       <form onSubmit={submitMessage} className="flex flex-col space-y-2">
