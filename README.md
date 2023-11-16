@@ -83,16 +83,6 @@ DATABASE_URL=mysql+pymysql://root:123456@localhost:3306/ecompjr
 JWT_SECRET_KEY=secret
 ```
 
-Se você quiser rodar o banco de dados pelo docker sem subir todos os serviços, é preciso alterar o arquivo `docker-compose.yaml` para permitir o acesso a porta 3306. Para isso, basta adicionar a seguinte linha no serviço `db`:
-
-```yaml
-...
-db:
-  ...
-  ports:
-    - 3306:3306
-...
-```
 Para rodar o banco de dados pelo docker, execute o seguinte comando:
 
 ```bash
