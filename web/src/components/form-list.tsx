@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 import { FormResponse } from "@/services/api"
 import { ChevronDown, ChevronUp, X } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import FormCard from "./form-card"
 import FormCardSkeleton from "./skeletons/form-card-skeleton"
 import { ScrollArea } from "./ui/scroll-area"
@@ -18,16 +18,20 @@ export default function FormList({ forms: data, refetch, isLoading }: Props) {
   const [searchParams] = useSearchParams()
   const formId = searchParams.get("formId")
 
-  const sortedForms = data
-    ?.sort((a, b) => {
+  const sortedForms = useMemo(() => {
+    const sortedFormsByDate = data?.sort((a, b) => {
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     })
-    .map(({ id, ...form }) => {
+
+    const formsWithId = sortedFormsByDate.map(({ id, ...form }) => {
       return {
         id: String(id),
         ...form,
       }
     })
+
+    return formsWithId
+  }, [data])
 
   useEffect(() => {
     if (formId) {
