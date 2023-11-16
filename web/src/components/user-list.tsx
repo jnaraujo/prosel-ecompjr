@@ -2,7 +2,7 @@ import { user } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { type User } from "@/services/api"
 import { ChevronDown, ChevronUp, Plus, X } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import UserCardSkeleton from "./skeletons/user-card-skeleton"
 import UserCard from "./user-card"
@@ -23,19 +23,23 @@ export default function UserList({ users, isLoading, refetch }: Props) {
   const isCreatingNewUser =
     !searchParams.get("userId") || searchParams.get("userId") === "new"
 
-  const sortedUsers = users
-    .sort((a, b) => {
+  const sortedUsers = useMemo(() => {
+    const sortedUsersByEmail = users?.sort((a, b) => {
       if (a.email === authUserEmail) return -1
       if (b.email === authUserEmail) return 1
 
       return a.email.localeCompare(b.email)
     })
-    .map(({ id, ...user }) => {
+
+    const usersWithId = sortedUsersByEmail.map(({ id, ...user }) => {
       return {
         id: String(id),
         ...user,
       }
     })
+
+    return usersWithId
+  }, [authUserEmail, users])
 
   useEffect(() => {
     if (userId) {
