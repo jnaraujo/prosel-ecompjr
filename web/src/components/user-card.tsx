@@ -5,14 +5,18 @@ import { Link } from "react-router-dom"
 import ConfirmationDialog from "./confirmation-dialog"
 import toast from "react-hot-toast"
 import { Trash2 } from "lucide-react"
-import { memo } from "react"
 
 interface UserCardProps extends User {
   refetch: () => void
   isUserSelected: boolean
 }
 
-function UserCard({ email, id, refetch, isUserSelected }: UserCardProps) {
+export default function UserCard({
+  email,
+  id,
+  refetch,
+  isUserSelected,
+}: UserCardProps) {
   const authUserEmail = user()?.sub
   const isAuthenticatedUser = authUserEmail === email
 
@@ -78,6 +82,3 @@ function UserCard({ email, id, refetch, isUserSelected }: UserCardProps) {
     </Link>
   )
 }
-
-const MemoizedUserCard = memo(UserCard)
-export default MemoizedUserCard
