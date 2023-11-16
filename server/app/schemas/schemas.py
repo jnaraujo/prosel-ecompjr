@@ -1,24 +1,24 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 from typing import Optional
 
 # User
 class User(BaseModel):
-  email: str
+  email: EmailStr
   password: str = Field(min_length=8)
 
 class UserLogin(BaseModel):
-  email: str
+  email: EmailStr
   password: str
 
 class UserUpdate(BaseModel):
   id: int
-  email: str
+  email: EmailStr
   password: Optional[str] = Field(min_length=8)
 
 # Form
 class Form(BaseModel):
   name: str
-  email: str
+  email: EmailStr
   description: str
 
 # JWT
